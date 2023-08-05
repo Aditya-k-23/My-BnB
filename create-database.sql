@@ -54,7 +54,7 @@ create table
     city varchar(50) not null,
     country varchar(50) not null,
     postal_code varchar(10) not null,
-    avgPricePerNight float default null,
+    avg_price float default null,
     host_id int not null,
     constraint fk_listing_host foreign key (host_id) references Host (id) on delete cascade,
     constraint fk_listing_address foreign key (address_line, city, country, postal_code) references Address (address_line, city, country, postal_code) on delete cascade
@@ -143,7 +143,7 @@ create table
 create trigger add_period after insert on Period for each row
 update Listing
 set
-  avgPricePerNight = (
+  avg_price = (
     select
       AVG(price)
     from
@@ -157,7 +157,7 @@ where
 create trigger delete_period after delete on Period for each row
 update Listing
 set
-  avgPricePerNight = (
+  avg_price = (
     select
       AVG(price)
     from
@@ -172,7 +172,7 @@ create trigger update_period after
 update on Period for each row
 update Listing
 set
-  avgPricePerNight = (
+  avg_price = (
     select
       AVG(price)
     from
