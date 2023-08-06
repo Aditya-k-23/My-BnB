@@ -2,7 +2,7 @@ package com.cscc43.mybnb.models;
 
 import java.time.LocalDate;
 
-public class Bookings {
+public class Booking {
   public enum Field {
     ID("id"),
     STATUS("status"),
@@ -90,7 +90,7 @@ public class Bookings {
 
   @Override
   public String toString() {
-    return "Bookings{" +
+    return "Booking{" +
         "id=" + this.id +
         ", status='" + this.status + '\'' +
         ", start_date='" + this.start_date + '\'' +
