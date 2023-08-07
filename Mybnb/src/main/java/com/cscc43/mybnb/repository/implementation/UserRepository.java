@@ -35,11 +35,18 @@ public class UserRepository implements UserRepositoryInterface {
 
   @Override
   public void addUser(User user) {
-    jdbcTemplate.update(
-        "INSERT INTO User (sin, name, address_line, city, country, postal_code, occupation, birthdate) VALUES (?, ?, ?, ?, ?, ?);",
-        user.getName(), user.getAddressLine(), user.getCity(),
-        user.getCountry(), user.getPostalCode(),
-        user.getOccupation(), user.getBirthdate());
+
+    String query = "INSERT INTO User(sin, name, address_line, city, country, " +
+        "postal_code, occupation, birthdate) VALUE (" +
+        user.getSIN() + ", " +
+        user.getName() + ", " +
+        user.getAddressLine() + ", " +
+        user.getCity() + ", " +
+        user.getCountry() + ", " +
+        user.getPostalCode() + ", " +
+        user.getOccupation() + ", " +
+        user.getBirthdate() + ");";
+    jdbcTemplate.update(query);
   }
 
   @Override

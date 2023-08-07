@@ -5,8 +5,12 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
 import com.cscc43.mybnb.models.ListingReview;
 
+@Service
 public class NounPhrases {
   public static Map<Integer, Map<String, Integer>> getPopularNounPhrases(List<ListingReview> review_list) {
     Map<Integer, Map<String, Integer>> listingPhrasesCountMap = new HashMap<>();

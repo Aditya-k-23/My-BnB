@@ -40,9 +40,9 @@ public class PaymentInfoRepository implements PaymentInfoRepositoryInterface {
   }
 
   @Override
-  public void createPaymentInfo(PaymentInfo paymentInfo) {
+  public void addPaymentInfo(PaymentInfo paymentInfo) {
     jdbcTemplate.update(
-        "INSERT INTO PaymentInfo (name_on_card, card_number, postal_code, expiry_date, user_id) VALUES (?, ?, ?, ?, ?);",
+        "INSERT INTO PaymentInfo (nameOnCard, cardNumber, postal_code, expiry_date, user_id) VALUES (?, ?, ?, ?, ?)",
         paymentInfo.getNameOnCard(),
         paymentInfo.getCardNumber(),
         paymentInfo.getPostalCode(),

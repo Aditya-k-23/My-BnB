@@ -24,9 +24,10 @@ public interface ListingRepositoryInterface {
 
   public void updateListing(Listing listing);
 
-  // public List<ListingDistance> getListingsInDistance(double latitude, double
-  // longitude, double radius,
-  // ListingController.OrderBy orderBy);
+  public List<ListingDistance> getListingsInDistance(double latitude, double longitude, double radius,
+      ListingController.OrderBy orderBy);
+
+  public List<ListingAddress> getListingsByPostalCode(String postal_code);
 
   public List<ListingAddress> getLisitingByAddressLine(String address_line);
 

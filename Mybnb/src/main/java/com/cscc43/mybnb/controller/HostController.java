@@ -40,5 +40,4 @@ public class HostController {
   public void deleteHost(@RequestParam("id") int id) {
     hostRepository.deleteHost(id);
   }
-
 }

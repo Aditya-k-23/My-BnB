@@ -459,8 +459,8 @@ values
 insert into
   PaymentInfo (
     id,
-    name_on_card,
-    card_number,
+    nameOnCard,
+    cardNumber,
     postal_code,
     expiry_date,
     user_id

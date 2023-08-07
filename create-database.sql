@@ -103,8 +103,8 @@ create table
 create table
   if not exists PaymentInfo (
     id int auto_increment primary key,
-    name_on_card varchar(100) charset utf8 not null,
-    card_number varchar(16) not null,
+    nameOnCard varchar(100) charset utf8 not null,
+    cardNumber varchar(16) not null,
     postal_code varchar(10) not null,
     expiry_date date not null,
     user_id int not null,

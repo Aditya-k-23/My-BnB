@@ -5,8 +5,8 @@ import java.time.LocalDate;
 public class PaymentInfo {
   public enum Field {
     ID("id"),
-    NAME_ON_CARD("name_on_card"),
-    CARD_NUMBER("card_number"),
+    nameOnCard("nameOnCard"),
+    cardNumber("cardNumber"),
     POSTAL_CODE("postal_code"),
     EXPIRY_DATE("expiry_date"),
     USER_ID("user_id");
@@ -24,8 +24,8 @@ public class PaymentInfo {
   }
 
   private int id;
-  private String name_on_card;
-  private String card_number;
+  private String nameOnCard;
+  private String cardNumber;
   private String postal_code;
   private LocalDate expiry_date;
   private int user_id;
@@ -39,19 +39,19 @@ public class PaymentInfo {
   }
 
   public String getNameOnCard() {
-    return this.name_on_card;
+    return this.nameOnCard;
   }
 
-  public void setNameOnCard(String name_on_card) {
-    this.name_on_card = name_on_card;
+  public void setNameOnCard(String nameOnCard) {
+    this.nameOnCard = nameOnCard;
   }
 
   public String getCardNumber() {
-    return this.card_number;
+    return this.cardNumber;
   }
 
-  public void setCardNumber(String card_number) {
-    this.card_number = card_number;
+  public void setCardNumber(String cardNumber) {
+    this.cardNumber = cardNumber;
   }
 
   public String getPostalCode() {
@@ -82,8 +82,8 @@ public class PaymentInfo {
   public String toString() {
     return "PaymentInfo {"
         + " id='" + getId() + "'"
-        + ", name_on_card='" + getNameOnCard() + "'"
-        + ", card_number='" + getCardNumber() + "'"
+        + ", nameOnCard='" + getNameOnCard() + "'"
+        + ", cardNumber='" + getCardNumber() + "'"
         + ", postal_code='" + getPostalCode() + "'"
         + ", expiry_date='" + getExpiryDate() + "'"
         + ", user_id='" + getUserId() + "'"

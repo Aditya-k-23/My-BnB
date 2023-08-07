@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.cscc43.mybnb.models.Amenity;
 import com.cscc43.mybnb.models.ListingAmenity;
 import com.cscc43.mybnb.repository.interfaces.ListingAmenityRepositoryInterface;
 
@@ -26,6 +27,12 @@ public class ListingAmenityRepository implements ListingAmenityRepositoryInterfa
   public List<ListingAmenity> getListingsWithAmenity(String amenity_name) {
     String query = "SELECT * FROM ListingAmenity WHERE amenity_name = ?;";
     return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(ListingAmenity.class), amenity_name);
+  }
+
+  @Override
+  public List<Amenity> getAmenitiesOfListing(int listing_id) {
+    String query = "SELECT * FROM ListingAmenity INNER JOIN Amenity ON ListingAmenity.name = Amenity.name WHERE listing_id = ?;";
+    return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Amenity.class), listing_id);
   }
 
   @Override

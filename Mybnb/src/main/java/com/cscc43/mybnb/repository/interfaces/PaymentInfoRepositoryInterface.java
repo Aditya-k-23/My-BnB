@@ -14,5 +14,5 @@ public interface PaymentInfoRepositoryInterface {
 
   public List<PaymentInfo> getPaymentInfoByUserId(int userId);
 
-  public void createPaymentInfo(PaymentInfo paymentInfo);
+  public void addPaymentInfo(PaymentInfo paymentInfo);
 }
