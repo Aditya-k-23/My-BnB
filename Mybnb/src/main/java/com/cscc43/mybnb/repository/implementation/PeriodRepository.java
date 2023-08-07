@@ -31,10 +31,10 @@ public class PeriodRepository implements PeriodRepositoryInterface {
   }
 
   @Override
-  public void deletePeriod(int id, int listing_id) {
+  public void deletePeriod(int id, int listingId) {
     try {
       String query = "DELETE FROM Period WHERE id = " + id +
-          " AND listing_id = " + listing_id + ";";
+          " AND listingId = " + listingId + ";";
       jdbcTemplate.update(query);
       System.out.println(query);
     } catch (EmptyResultDataAccessException e) {
@@ -54,47 +54,47 @@ public class PeriodRepository implements PeriodRepositoryInterface {
   public List<Listing> getAvailableListings() {
     String query = "SELECT DISTINCT L.* " +
         "FROM Period AS P INNER JOIN Listing AS L " +
-        "ON L.id = P.listing_id";
+        "ON L.id = P.listingId";
     return jdbcTemplate.query(query,
         new BeanPropertyRowMapper<>(Listing.class));
   }
 
   @Override
-  public List<Period> getPeriods(int listing_id) {
-    String query = "SELECT * FROM Period WHERE listing_id = ?;";
+  public List<Period> getPeriods(int listingId) {
+    String query = "SELECT * FROM Period WHERE listingId = ?;";
     return jdbcTemplate.query(query,
-        new BeanPropertyRowMapper<>(Period.class), listing_id);
+        new BeanPropertyRowMapper<>(Period.class), listingId);
   }
 
   @Override
-  public List<Period> getPeriods(int listing_id, LocalDate start_date, LocalDate end_date) {
+  public List<Period> getPeriods(int listingId, LocalDate startDate, LocalDate endDate) {
     String query = "SELECT * FROM Period " +
-        "WHERE ? <= DATE(end_date) " +
-        "AND listing_id = ? " +
-        "AND DATE(start_date) <= ?;";
+        "WHERE ? <= DATE(endDate) " +
+        "AND listingId = ? " +
+        "AND DATE(startDate) <= ?;";
     return jdbcTemplate.query(query,
         new BeanPropertyRowMapper<>(Period.class),
-        start_date, listing_id, end_date);
+        startDate, listingId, endDate);
   }
 
   @Override
-  public List<Period> getPeriods(LocalDate start_date, LocalDate end_date) {
+  public List<Period> getPeriods(LocalDate startDate, LocalDate endDate) {
     String query = "SELECT * FROM Period " +
-        "WHERE ? <= DATE(end_date) " +
-        "AND DATE(start_date) <= ?;";
+        "WHERE ? <= DATE(endDate) " +
+        "AND DATE(startDate) <= ?;";
     return jdbcTemplate.query(query,
         new BeanPropertyRowMapper<>(Period.class),
-        start_date, end_date);
+        startDate, endDate);
   }
 
   @Override
-  public List<Period> getPeriods(int listing_id, LocalDate end_date) {
+  public List<Period> getPeriods(int listingId, LocalDate endDate) {
     String query = "SELECT * FROM Period " +
-        "WHERE listing_id = ? " +
-        "AND DATE(start_date) <= ?;";
+        "WHERE listingId = ? " +
+        "AND DATE(startDate) <= ?;";
     return jdbcTemplate.query(query,
         new BeanPropertyRowMapper<>(Period.class),
-        listing_id, end_date);
+        listingId, endDate);
   }
 
 }

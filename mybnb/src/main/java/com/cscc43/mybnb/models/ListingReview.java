@@ -5,9 +5,9 @@ public class ListingReview {
     ID("id"),
     RATING("rating"),
     COMMENT("comment"),
-    BOOKING_ID("booking_id"),
+    bookingId("bookingId"),
     RENTER_ID("renter_id"),
-    LISTING_ID("listing_id");
+    listingId("listingId");
 
     private final String value;
 
@@ -24,9 +24,9 @@ public class ListingReview {
   private int id;
   private int rating;
   private String comment;
-  private int booking_id;
+  private int bookingId;
   private int renter_id;
-  private int listing_id;
+  private int listingId;
 
   public int getId() {
     return this.id;
@@ -53,11 +53,11 @@ public class ListingReview {
   }
 
   public int getBookingId() {
-    return this.booking_id;
+    return this.bookingId;
   }
 
-  public void setBookingId(int booking_id) {
-    this.booking_id = booking_id;
+  public void setBookingId(int bookingId) {
+    this.bookingId = bookingId;
   }
 
   public int getRenterId() {
@@ -69,11 +69,11 @@ public class ListingReview {
   }
 
   public int getListingId() {
-    return this.listing_id;
+    return this.listingId;
   }
 
-  public void setListingId(int listing_id) {
-    this.listing_id = listing_id;
+  public void setListingId(int listingId) {
+    this.listingId = listingId;
   }
 
   @Override
@@ -82,9 +82,9 @@ public class ListingReview {
         + "id=" + id + ", "
         + "rating=" + rating + ", "
         + "comment=" + comment + ", "
-        + "booking_id=" + booking_id + ", "
+        + "bookingId=" + bookingId + ", "
         + "renter_id=" + renter_id + ", "
-        + "listing_id=" + listing_id + ", "
+        + "listingId=" + listingId + ", "
         + "}";
   }
 }

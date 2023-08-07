@@ -22,8 +22,8 @@ public class HostToolkit {
   AmenityRepository amenityRepository;
 
   @GetMapping(path = "/getRecommendedPrice")
-  public Float getSuggestedPrice(@RequestParam("listing_id") int listing_id) {
-    return listingRepository.getRecommendedPrice(listing_id);
+  public Float getSuggestedPrice(@RequestParam("listingId") int listingId) {
+    return listingRepository.getRecommendedPrice(listingId);
   }
 
   @GetMapping(path = "/getRecommendedAmenities")
@@ -32,8 +32,8 @@ public class HostToolkit {
   }
 
   @GetMapping(path = "/getExpectedPriceHike")
-  public Float getExpectedPriceHike(@RequestParam("listing_id") int listing_id,
-      @RequestParam("amenity_name") String amenity_name) {
-    return amenityRepository.getExpectedPriceHike(listing_id, amenity_name);
+  public Float getExpectedPriceHike(@RequestParam("listingId") int listingId,
+      @RequestParam("amenityName") String amenityName) {
+    return amenityRepository.getExpectedPriceHike(listingId, amenityName);
   }
 }

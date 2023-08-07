@@ -34,7 +34,7 @@ public class AddressRepository implements AddressRepositoryInterface {
 
   @Override
   public void addAddress(Address address) {
-    jdbcTemplate.update("INSERT INTO Address (address_line, city, country, postal_code) VALUES (?, ?, ?, ?, ?);",
+    jdbcTemplate.update("INSERT INTO Address (addressLine, city, country, postalCode) VALUES (?, ?, ?, ?, ?);",
         address.getAddressLine(),
         address.getCity(),
         address.getCountry(), address.getPostalCode());

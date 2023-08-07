@@ -24,26 +24,26 @@ public class ListingAmenityRepository implements ListingAmenityRepositoryInterfa
   }
 
   @Override
-  public List<ListingAmenity> getListingsWithAmenity(String amenity_name) {
-    String query = "SELECT * FROM ListingAmenity WHERE amenity_name = ?;";
-    return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(ListingAmenity.class), amenity_name);
+  public List<ListingAmenity> getListingsWithAmenity(String amenityName) {
+    String query = "SELECT * FROM ListingAmenity WHERE amenityName = ?;";
+    return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(ListingAmenity.class), amenityName);
   }
 
   @Override
-  public List<Amenity> getAmenitiesOfListing(int listing_id) {
-    String query = "SELECT * FROM ListingAmenity INNER JOIN Amenity ON ListingAmenity.name = Amenity.name WHERE listing_id = ?;";
-    return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Amenity.class), listing_id);
+  public List<Amenity> getAmenitiesOfListing(int listingId) {
+    String query = "SELECT * FROM ListingAmenity INNER JOIN Amenity ON ListingAmenity.name = Amenity.name WHERE listingId = ?;";
+    return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Amenity.class), listingId);
   }
 
   @Override
-  public void addListingAmenity(int listing_id, String amenity_name) {
-    String query = "INSERT INTO ListingAmenity (amenity_name,listing_id_) VALUE (?,?);";
-    jdbcTemplate.update(query, amenity_name, listing_id);
+  public void addListingAmenity(int listingId, String amenityName) {
+    String query = "INSERT INTO ListingAmenity (amenityName,listingId_) VALUE (?,?);";
+    jdbcTemplate.update(query, amenityName, listingId);
   }
 
   @Override
   public void addListingAmenity(ListingAmenity listingAmenity) {
-    String query = "INSERT INTO ListingAmenity (amenity_name,listing_id_) VALUE (?,?);";
+    String query = "INSERT INTO ListingAmenity (amenityName,listingId_) VALUE (?,?);";
     jdbcTemplate.update(query, listingAmenity.getAmenityName(), listingAmenity.getListingId());
   }
 

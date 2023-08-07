@@ -10,11 +10,11 @@ public interface ListingReviewRepositoryInterface {
 
   public ListingReview getListingReviewByReviewId(int id);
 
-  public List<ListingReview> getListingReviewsByListing(int listing_id);
+  public List<ListingReview> getListingReviewsByListing(int listingId);
 
-  public List<ListingReview> getListingReviewsByReviewerId(int reviewer_id);
+  public List<ListingReview> getListingReviewsByReviewerId(int reviewerId);
 
-  public List<ListingReview> getListingReviewByBookingId(int booking_id);
+  public List<ListingReview> getListingReviewByBookingId(int bookingId);
 
   public void addListingReview(ListingReview listingReview);
 

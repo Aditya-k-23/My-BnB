@@ -15,10 +15,10 @@ public class ListingDistancePrice implements RowMapper<ListingDistance> {
     curListing.setType(rs.getString("type"));
     curListing.setLatitude(rs.getDouble("latitude"));
     curListing.setLongitude(rs.getDouble("longitude"));
-    curListing.setAddressLine(rs.getString("address_line"));
+    curListing.setAddressLine(rs.getString("addressLine"));
     curListing.setCity(rs.getString("city"));
     curListing.setCountry(rs.getString("country"));
-    curListing.setAvgPrice(rs.getDouble("avg_price"));
+    curListing.setAvgPrice(rs.getDouble("avgPrice"));
     curListing.setHostId(rs.getInt("host_id"));
 
     ListingDistance curListingDistance = new ListingDistance(curListing);

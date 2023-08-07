@@ -24,9 +24,9 @@ public class AmenityRepository implements AmenityRepositoryInterface {
   }
 
   @Override
-  public Amenity getAmenity(String amenity_name) {
+  public Amenity getAmenity(String amenityName) {
     return jdbcTemplate.queryForObject("SELECT * FROM Amenity WHERE name = ?;",
-        new BeanPropertyRowMapper<>(Amenity.class), amenity_name);
+        new BeanPropertyRowMapper<>(Amenity.class), amenityName);
   }
 
   @Override
@@ -44,53 +44,53 @@ public class AmenityRepository implements AmenityRepositoryInterface {
   }
 
   @Override
-  public List<String> getAllAmenityNames(int listing_id) {
+  public List<String> getAllAmenityNames(int listingId) {
     return jdbcTemplate.queryForList(
-        "SELECT amenity_name FROM ListingAmenity AS LA WHERE LA.listing_id =" + listing_id + ";",
+        "SELECT amenityName FROM ListingAmenity AS LA WHERE LA.listingId =" + listingId + ";",
         String.class);
   }
 
-  private List<Integer> getListingIdsWithAllAmenities(int listing_id, List<String> amenity_names) {
-    String query = "SELECT DISTINCT listing_id FROM Listing AS L INNER JOIN ListingAmenity AS LA  ON L.id = LA.listing_id\n";
+  private List<Integer> getListingIdsWithAllAmenities(int listingId, List<String> amenityNames) {
+    String query = "SELECT DISTINCT listingId FROM Listing AS L INNER JOIN ListingAmenity AS LA  ON L.id = LA.listingId\n";
 
-    if (amenity_names.isEmpty()) {
+    if (amenityNames.isEmpty()) {
       return new ArrayList<>();
     }
 
-    for (int i = 0; i < amenity_names.size(); i++) {
+    for (int i = 0; i < amenityNames.size(); i++) {
       query += (i == 0) ? "WHERE EXISTS " : "AND EXISTS ";
       query += "(SELECT * FROM ListingAmenity AS LA WHERE L.id = LA.listingID AND LA.amenity = '"
-          + amenity_names.get(i) + "')\n";
+          + amenityNames.get(i) + "')\n";
     }
 
-    query += "AND L.id !=" + listing_id + "\n" +
+    query += "AND L.id !=" + listingId + "\n" +
         "GROUP BY L.id\n" +
-        "HAVING COUNT(LA.amenity_name) = " + amenity_names.size() + ";";
+        "HAVING COUNT(LA.amenityName) = " + amenityNames.size() + ";";
     System.out.println(query);
 
     return jdbcTemplate.queryForList(query, Integer.class);
   }
 
   @Override
-  public Float getExpectedPriceHike(int listing_id, String amenity_name) {
-    List<String> amenity_names = getAllAmenityNames(listing_id);
+  public Float getExpectedPriceHike(int listingId, String amenityName) {
+    List<String> amenityNames = getAllAmenityNames(listingId);
 
-    amenity_names.add(amenity_name);
-    System.out.println(amenity_names);
-    List<Integer> listingIdsWithAllAmenities = getListingIdsWithAllAmenities(listing_id, amenity_names);
+    amenityNames.add(amenityName);
+    System.out.println(amenityNames);
+    List<Integer> listingIdsWithAllAmenities = getListingIdsWithAllAmenities(listingId, amenityNames);
     if (listingIdsWithAllAmenities.isEmpty()) {
       return null;
     }
 
-    String query = "SELECT L.avg_price - AVG(mod.new_avg_price)" +
-        "AS avg_price_of_similar_listings\n" +
-        "FROM (SELECT L.avg_price AS avg_price_with_new_amenity" +
+    String query = "SELECT L.avgPrice - AVG(mod.new_avgPrice)" +
+        "AS avgPrice_of_similar_listings\n" +
+        "FROM (SELECT L.avgPrice AS avgPrice_with_new_amenity" +
         "FROM Listing L";
     for (int i = 0; i < listingIdsWithAllAmenities.size(); i++) {
       query += (i == 0) ? " WHERE L.id = " : " OR L.id = ";
       query += listingIdsWithAllAmenities.get(i);
     }
-    query += ") mod, Listing L WHERE L.id = " + listing_id + ";";
+    query += ") mod, Listing L WHERE L.id = " + listingId + ";";
 
     System.out.println(query);
 

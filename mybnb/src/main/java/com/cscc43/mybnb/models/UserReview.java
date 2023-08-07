@@ -5,9 +5,9 @@ public class UserReview {
     ID("id"),
     RATING("rating"),
     COMMENT("comment"),
-    BOOKING_ID("booking_id"),
-    REVIEWER_ID("reviewer_id"),
-    REVIEWED_ID("reviewed_id");
+    bookingId("bookingId"),
+    reviewerId("reviewerId"),
+    reviewedId("reviewedId");
 
     private final String value;
 
@@ -24,9 +24,9 @@ public class UserReview {
   private int id;
   private int rating;
   private String comment;
-  private int booking_id;
-  private int reviewer_id;
-  private int reviewed_id;
+  private int bookingId;
+  private int reviewerId;
+  private int reviewedId;
 
   public int getId() {
     return this.id;
@@ -53,27 +53,27 @@ public class UserReview {
   }
 
   public int getBookingId() {
-    return this.booking_id;
+    return this.bookingId;
   }
 
-  public void setBookingId(int booking_id) {
-    this.booking_id = booking_id;
+  public void setBookingId(int bookingId) {
+    this.bookingId = bookingId;
   }
 
   public int getReviewerId() {
-    return this.reviewer_id;
+    return this.reviewerId;
   }
 
-  public void setReviewerId(int reviewer_id) {
-    this.reviewer_id = reviewer_id;
+  public void setReviewerId(int reviewerId) {
+    this.reviewerId = reviewerId;
   }
 
   public int getReviewedId() {
-    return this.reviewed_id;
+    return this.reviewedId;
   }
 
-  public void setReviewedId(int reviewed_id) {
-    this.reviewed_id = reviewed_id;
+  public void setReviewedId(int reviewedId) {
+    this.reviewedId = reviewedId;
   }
 
   @Override
@@ -82,9 +82,9 @@ public class UserReview {
         "id=" + id +
         ", rating=" + rating +
         ", comment='" + comment + '\'' +
-        ", booking_id=" + booking_id +
-        ", reviewer_id=" + reviewer_id +
-        ", reviewed_id=" + reviewed_id +
+        ", bookingId=" + bookingId +
+        ", reviewerId=" + reviewerId +
+        ", reviewedId=" + reviewedId +
         '}';
   }
 }

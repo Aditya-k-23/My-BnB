@@ -12,11 +12,11 @@ public interface UserReviewRepositoryInterface {
 
   public UserReview getUserReviewByReviewId(int id);
 
-  public List<UserReview> getUserReviewsForUser(int reviewed_id);
+  public List<UserReview> getUserReviewsForUser(int reviewedId);
 
-  public List<UserReview> getUserReviewsByUser(int reviewer_id);
+  public List<UserReview> getUserReviewsByUser(int reviewerId);
 
-  public List<UserReview> getUserReviewByBookingId(int booking_id);
+  public List<UserReview> getUserReviewByBookingId(int bookingId);
 
   public void addUserReview(UserReview userReview);
 

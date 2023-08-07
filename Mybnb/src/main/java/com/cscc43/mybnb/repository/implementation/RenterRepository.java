@@ -46,14 +46,14 @@ public class RenterRepository implements RenterRepositoryInterface {
   }
 
   @Override
-  public List<RenterIDBookingCount> getRenterRankedByBoookingsInPeriod(LocalDate start_date, LocalDate end_date) {
+  public List<RenterIDBookingCount> getRenterRankedByBoookingsInPeriod(LocalDate startDate, LocalDate endDate) {
     String query = "SELECT R.id, COUNT(B.id) AS booking_count " +
         "FROM Renter R, Booking B " +
         "WHERE R.id = B.renter_id " +
-        "AND B.start_date >= " +
-        start_date.toString() +
-        " AND B.end_date <= " +
-        end_date.toString() +
+        "AND B.startDate >= " +
+        startDate.toString() +
+        " AND B.endDate <= " +
+        endDate.toString() +
         " GROUP BY R.id " +
         "ORDER BY booking_count DESC;";
 
@@ -61,18 +61,18 @@ public class RenterRepository implements RenterRepositoryInterface {
   }
 
   @Override
-  public List<RenterIDBookingCount> getRenterRankedByBoookingsInRangePerCity(LocalDate start_date, LocalDate end_date,
+  public List<RenterIDBookingCount> getRenterRankedByBoookingsInRangePerCity(LocalDate startDate, LocalDate endDate,
       int minBookingCount) {
     String query = "SELECT L.city, B.renter_id, COUNT(B.id) AS booking_count " +
         "FROM Booking B, Listing L " +
-        "WHERE (B.start_date BETWEEN '" +
-        start_date.toString() +
+        "WHERE (B.startDate BETWEEN '" +
+        startDate.toString() +
         "' AND '" +
-        end_date.toString() +
-        "') AND (B.end_date BETWEEN '" +
-        start_date.toString() +
+        endDate.toString() +
+        "') AND (B.endDate BETWEEN '" +
+        startDate.toString() +
         "' AND '" +
-        end_date.toString() +
+        endDate.toString() +
         "'')\n" +
         "GROUP BY L.city, B.renter_id HAVING (booking_count >= " +
         minBookingCount + ")\n" +
@@ -83,7 +83,7 @@ public class RenterRepository implements RenterRepositoryInterface {
 
   @Override
   public List<YearUserIDBookingCount> getRenterRankedByCancellationsInYear() {
-    String query = "SELECT YEAR(B.start_date) AS year, B.renter_id, COUNT(B.id) AS cancelled_count " +
+    String query = "SELECT YEAR(B.startDate) AS year, B.renter_id, COUNT(B.id) AS cancelled_count " +
         "FROM Booking B " +
         "WHERE B.status = 'Cancelled' " +
         "GROUP BY year, B.renter_id " +

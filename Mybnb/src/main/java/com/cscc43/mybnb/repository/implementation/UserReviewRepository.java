@@ -30,21 +30,21 @@ public class UserReviewRepository implements UserReviewRepositoryInterface {
   }
 
   @Override
-  public List<UserReview> getUserReviewsForUser(int reviewed_id) {
-    String query = "SELECT * FROM UserReview WHERE reviewed_id = ?;";
-    return jdbcTemplate.query(query, new BeanPropertyRowMapper<UserReview>(UserReview.class), reviewed_id);
+  public List<UserReview> getUserReviewsForUser(int reviewedId) {
+    String query = "SELECT * FROM UserReview WHERE reviewedId = ?;";
+    return jdbcTemplate.query(query, new BeanPropertyRowMapper<UserReview>(UserReview.class), reviewedId);
   }
 
   @Override
-  public List<UserReview> getUserReviewsByUser(int reviewer_id) {
-    String query = "SELECT * FROM UserReview WHERE reviewer_id = ?;";
-    return jdbcTemplate.query(query, new BeanPropertyRowMapper<UserReview>(UserReview.class), reviewer_id);
+  public List<UserReview> getUserReviewsByUser(int reviewerId) {
+    String query = "SELECT * FROM UserReview WHERE reviewerId = ?;";
+    return jdbcTemplate.query(query, new BeanPropertyRowMapper<UserReview>(UserReview.class), reviewerId);
   }
 
   @Override
-  public List<UserReview> getUserReviewByBookingId(int booking_id) {
-    String query = "SELECT * FROM UserReview WHERE booking_id = ?;";
-    return jdbcTemplate.query(query, new BeanPropertyRowMapper<UserReview>(UserReview.class), booking_id);
+  public List<UserReview> getUserReviewByBookingId(int bookingId) {
+    String query = "SELECT * FROM UserReview WHERE bookingId = ?;";
+    return jdbcTemplate.query(query, new BeanPropertyRowMapper<UserReview>(UserReview.class), bookingId);
   }
 
   @Override

@@ -34,14 +34,14 @@ public class BookingRepository implements BookingRepositoryInterface {
   }
 
   @Override
-  public String addBooking(int renter_id, int listing_id, LocalDate start_date,
-      LocalDate end_date) {
+  public String addBooking(int renter_id, int listingId, LocalDate startDate,
+      LocalDate endDate) {
     try {
       jdbcTemplate.queryForObject(
           "CALL add_booking(?, ?, ?, ?);", String.class,
-          listing_id,
-          start_date,
-          end_date,
+          listingId,
+          startDate,
+          endDate,
           renter_id);
       return "Booking added successfully";
     } catch (Exception e) {
@@ -55,27 +55,27 @@ public class BookingRepository implements BookingRepositoryInterface {
   }
 
   @Override
-  public int getCountBookings(LocalDate start_date, LocalDate end_date,
-      String city, String postal_code) {
-    System.out.println(city + postal_code + "\n");
+  public int getCountBookings(LocalDate startDate, LocalDate endDate,
+      String city, String postalCode) {
+    System.out.println(city + postalCode + "\n");
 
     String query = "SELECT COUNT(*) FROM Booking B\n" +
-        "INNER JOIN Listing L ON L.listing_id=B.listing_id\n" +
-        "WHERE (start_date BETWEEN ? AND ? OR end_date BETWEEN ? AND ?)\n";
+        "INNER JOIN Listing L ON L.listingId=B.listingId\n" +
+        "WHERE (startDate BETWEEN ? AND ? OR endDate BETWEEN ? AND ?)\n";
 
     if (city != null) {
       query += "AND L.city = " + city;
     }
 
-    if (postal_code != null) {
-      query += "AND L.postal_code = " + postal_code;
+    if (postalCode != null) {
+      query += "AND L.postalCode = " + postalCode;
     }
 
     query += ";";
 
     System.out.println(query + "\n");
     return jdbcTemplate.queryForObject(query, Integer.class,
-        start_date, end_date, start_date, end_date);
+        startDate, endDate, startDate, endDate);
 
   }
 

@@ -16,7 +16,7 @@ public interface AmenityRepositoryInterface {
 
   public List<Amenity> getRecommendedAmenities();
 
-  public List<String> getAllAmenityNames(int listing_id);
+  public List<String> getAllAmenityNames(int listingId);
 
-  public Float getExpectedPriceHike(int listing_id, String amenity_name);
+  public Float getExpectedPriceHike(int listingId, String amenityName);
 }

@@ -7,9 +7,9 @@ public class PaymentInfo {
     ID("id"),
     nameOnCard("nameOnCard"),
     cardNumber("cardNumber"),
-    POSTAL_CODE("postal_code"),
-    EXPIRY_DATE("expiry_date"),
-    USER_ID("user_id");
+    postalCode("postalCode"),
+    expiryDate("expiryDate"),
+    userId("userId");
 
     private final String value;
 
@@ -26,9 +26,9 @@ public class PaymentInfo {
   private int id;
   private String nameOnCard;
   private String cardNumber;
-  private String postal_code;
-  private LocalDate expiry_date;
-  private int user_id;
+  private String postalCode;
+  private LocalDate expiryDate;
+  private int userId;
 
   public int getId() {
     return this.id;
@@ -55,27 +55,27 @@ public class PaymentInfo {
   }
 
   public String getPostalCode() {
-    return this.postal_code;
+    return this.postalCode;
   }
 
-  public void setPostalCode(String postal_code) {
-    this.postal_code = postal_code;
+  public void setPostalCode(String postalCode) {
+    this.postalCode = postalCode;
   }
 
   public LocalDate getExpiryDate() {
-    return this.expiry_date;
+    return this.expiryDate;
   }
 
-  public void setExpiryDate(LocalDate expiry_date) {
-    this.expiry_date = expiry_date;
+  public void setExpiryDate(LocalDate expiryDate) {
+    this.expiryDate = expiryDate;
   }
 
   public int getUserId() {
-    return this.user_id;
+    return this.userId;
   }
 
-  public void setUserId(int user_id) {
-    this.user_id = user_id;
+  public void setUserId(int userId) {
+    this.userId = userId;
   }
 
   @Override
@@ -84,9 +84,9 @@ public class PaymentInfo {
         + " id='" + getId() + "'"
         + ", nameOnCard='" + getNameOnCard() + "'"
         + ", cardNumber='" + getCardNumber() + "'"
-        + ", postal_code='" + getPostalCode() + "'"
-        + ", expiry_date='" + getExpiryDate() + "'"
-        + ", user_id='" + getUserId() + "'"
+        + ", postalCode='" + getPostalCode() + "'"
+        + ", expiryDate='" + getExpiryDate() + "'"
+        + ", userId='" + getUserId() + "'"
         + " }";
   }
 }

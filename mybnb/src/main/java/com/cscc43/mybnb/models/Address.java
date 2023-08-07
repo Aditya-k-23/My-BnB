@@ -2,10 +2,10 @@ package com.cscc43.mybnb.models;
 
 public class Address {
   public enum Field {
-    ADDRESS_LINE("address_line"),
+    addressLine("addressLine"),
     CITY("city"),
     COUNTRY("country"),
-    POSTAL_CODE("postal_code");
+    postalCode("postalCode");
 
     private final String value;
 
@@ -19,17 +19,17 @@ public class Address {
     }
   }
 
-  private String address_line;
+  private String addressLine;
   private String city;
   private String country;
-  private String postal_code;
+  private String postalCode;
 
   public String getAddressLine() {
-    return this.address_line;
+    return this.addressLine;
   }
 
-  public void setAddressLine(String address_line) {
-    this.address_line = address_line;
+  public void setAddressLine(String addressLine) {
+    this.addressLine = addressLine;
   }
 
   public String getCity() {
@@ -49,20 +49,20 @@ public class Address {
   }
 
   public String getPostalCode() {
-    return this.postal_code;
+    return this.postalCode;
   }
 
-  public void setPostalCode(String postal_code) {
-    this.postal_code = postal_code;
+  public void setPostalCode(String postalCode) {
+    this.postalCode = postalCode;
   }
 
   @Override
   public String toString() {
     return "Address{" +
-        "address_line='" + this.address_line + '\'' +
+        "addressLine='" + this.addressLine + '\'' +
         ", city='" + this.city + '\'' +
         ", country='" + this.country + '\'' +
-        ", postal_code='" + this.postal_code + '\'' +
+        ", postalCode='" + this.postalCode + '\'' +
         '}';
   }
 

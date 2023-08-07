@@ -53,14 +53,14 @@ public class ListingController {
   }
 
   @PostMapping("/delete")
-  public ResponseEntity<String> deleteListing(@RequestParam("id") int listing_id) {
-    Listing existingListing = listingRepository.getListing(listing_id);
+  public ResponseEntity<String> deleteListing(@RequestParam("id") int listingId) {
+    Listing existingListing = listingRepository.getListing(listingId);
 
     if (existingListing == null) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Listing with this ID doesn't exist!");
     }
 
-    listingRepository.deleteListing(listing_id);
+    listingRepository.deleteListing(listingId);
     return ResponseEntity.status(HttpStatus.OK).body("Listing deleted successfully!");
   }
 

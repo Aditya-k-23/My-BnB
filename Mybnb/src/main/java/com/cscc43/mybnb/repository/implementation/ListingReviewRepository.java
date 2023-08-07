@@ -30,21 +30,21 @@ public class ListingReviewRepository implements ListingReviewRepositoryInterface
   }
 
   @Override
-  public List<ListingReview> getListingReviewsByListing(int listing_id) {
-    String query = "SELECT * FROM ListingReview WHERE listing_id = ?;";
-    return jdbcTemplate.query(query, new BeanPropertyRowMapper<ListingReview>(ListingReview.class), listing_id);
+  public List<ListingReview> getListingReviewsByListing(int listingId) {
+    String query = "SELECT * FROM ListingReview WHERE listingId = ?;";
+    return jdbcTemplate.query(query, new BeanPropertyRowMapper<ListingReview>(ListingReview.class), listingId);
   }
 
   @Override
-  public List<ListingReview> getListingReviewsByReviewerId(int reviewer_id) {
-    String query = "SELECT * FROM ListingReview WHERE reviewer_id = ?;";
-    return jdbcTemplate.query(query, new BeanPropertyRowMapper<ListingReview>(ListingReview.class), reviewer_id);
+  public List<ListingReview> getListingReviewsByReviewerId(int reviewerId) {
+    String query = "SELECT * FROM ListingReview WHERE reviewerId = ?;";
+    return jdbcTemplate.query(query, new BeanPropertyRowMapper<ListingReview>(ListingReview.class), reviewerId);
   }
 
   @Override
-  public List<ListingReview> getListingReviewByBookingId(int booking_id) {
-    String query = "SELECT * FROM ListingReview WHERE booking_id = ?;";
-    return jdbcTemplate.query(query, new BeanPropertyRowMapper<ListingReview>(ListingReview.class), booking_id);
+  public List<ListingReview> getListingReviewByBookingId(int bookingId) {
+    String query = "SELECT * FROM ListingReview WHERE bookingId = ?;";
+    return jdbcTemplate.query(query, new BeanPropertyRowMapper<ListingReview>(ListingReview.class), bookingId);
   }
 
   @Override

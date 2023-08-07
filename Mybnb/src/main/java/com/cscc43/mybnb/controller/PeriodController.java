@@ -31,27 +31,27 @@ public class PeriodController {
   }
 
   @GetMapping("/byListingId")
-  public List<Period> getPeriodById(@RequestParam("listingId") int listing_id) {
-    return periodRepository.getPeriods(listing_id);
+  public List<Period> getPeriodById(@RequestParam("listingId") int listingId) {
+    return periodRepository.getPeriods(listingId);
   }
 
   @GetMapping("/getPeriods")
-  public List<Period> getAllPeriods(@RequestParam("listingId") int listing_id,
-      @RequestParam(value = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start_date,
-      @RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end_date) {
-    if (start_date == null && end_date == null)
-      return periodRepository.getPeriods(listing_id);
-    else if (start_date == null)
-      return periodRepository.getPeriods(listing_id, end_date);
+  public List<Period> getAllPeriods(@RequestParam("listingId") int listingId,
+      @RequestParam(value = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+      @RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+    if (startDate == null && endDate == null)
+      return periodRepository.getPeriods(listingId);
+    else if (startDate == null)
+      return periodRepository.getPeriods(listingId, endDate);
     else
-      return periodRepository.getPeriods(listing_id, start_date, end_date);
+      return periodRepository.getPeriods(listingId, startDate, endDate);
   }
 
   @GetMapping("/getPeriodsInRange")
   public List<Period> getPeriodsInRange(
-      @RequestParam(value = "startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start_date,
-      @RequestParam(value = "endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end_date) {
-    return periodRepository.getPeriods(start_date, end_date);
+      @RequestParam(value = "startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+      @RequestParam(value = "endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+    return periodRepository.getPeriods(startDate, endDate);
   }
 
   @GetMapping("/getAllAvailableListings")

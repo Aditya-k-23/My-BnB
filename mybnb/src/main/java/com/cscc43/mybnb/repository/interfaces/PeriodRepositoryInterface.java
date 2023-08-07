@@ -12,18 +12,18 @@ import com.cscc43.mybnb.models.Period;
 public interface PeriodRepositoryInterface {
   public List<Period> getAllPeriods();
 
-  public List<Period> getPeriods(int listing_id);
+  public List<Period> getPeriods(int listingId);
 
-  public List<Period> getPeriods(int listing_id, LocalDate start_date, LocalDate end_date);
+  public List<Period> getPeriods(int listingId, LocalDate startDate, LocalDate endDate);
 
-  public List<Period> getPeriods(LocalDate start_date, LocalDate end_date);
+  public List<Period> getPeriods(LocalDate startDate, LocalDate endDate);
 
-  public List<Period> getPeriods(int listing_id, LocalDate end_date);
+  public List<Period> getPeriods(int listingId, LocalDate endDate);
 
   public List<Listing> getAvailableListings();
 
   public String addPeriod(Period period);
 
-  public void deletePeriod(int id, int listing_id);
+  public void deletePeriod(int id, int listingId);
 
 }

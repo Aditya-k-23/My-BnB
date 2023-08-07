@@ -19,9 +19,9 @@ public interface RenterRepositoryInterface {
 
   public void deleteRenter(int id);
 
-  public List<RenterIDBookingCount> getRenterRankedByBoookingsInPeriod(LocalDate start_date, LocalDate end_date);
+  public List<RenterIDBookingCount> getRenterRankedByBoookingsInPeriod(LocalDate startDate, LocalDate endDate);
 
-  public List<RenterIDBookingCount> getRenterRankedByBoookingsInRangePerCity(LocalDate start_date, LocalDate end_date,
+  public List<RenterIDBookingCount> getRenterRankedByBoookingsInRangePerCity(LocalDate startDate, LocalDate endDate,
       int minBookingCount);
 
   public List<YearUserIDBookingCount> getRenterRankedByCancellationsInYear();

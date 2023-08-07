@@ -72,11 +72,11 @@ public class HostRepository implements HostRepositoryInterface {
 
   @Override
   public List<YearUserIDBookingCount> getHostsByCancellationsPerYear() {
-    String query = "SELECT YEAR(start_date) AS year, host_id, COUNT(*) AS count" +
-        "FROM Booking B INNER JOIN Listing L ON L.listing_id=B.listing_id" +
+    String query = "SELECT YEAR(startDate) AS year, host_id, COUNT(*) AS count" +
+        "FROM Booking B INNER JOIN Listing L ON L.listingId=B.listingId" +
         "WHERE status = 'Cancelled'" +
-        "GROUP BY YEAR(start_date), host_id" +
-        "ORDER BY YEAR(booking_date), user_id, count DESC;";
+        "GROUP BY YEAR(startDate), host_id" +
+        "ORDER BY YEAR(booking_date), userId, count DESC;";
 
     return jdbcTemplate.query(query, new BeanPropertyRowMapper(YearUserIDBookingCount.class));
   }

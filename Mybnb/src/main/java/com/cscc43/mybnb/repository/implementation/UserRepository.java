@@ -24,10 +24,10 @@ public class UserRepository implements UserRepositoryInterface {
   }
 
   @Override
-  public User getUser(int user_id) {
+  public User getUser(int userId) {
     try {
       return (User) jdbcTemplate.queryForObject("SELECT * FROM User WHERE id = ?;",
-          new BeanPropertyRowMapper(User.class), user_id);
+          new BeanPropertyRowMapper(User.class), userId);
     } catch (EmptyResultDataAccessException e) {
       return null;
     }
@@ -36,8 +36,8 @@ public class UserRepository implements UserRepositoryInterface {
   @Override
   public void addUser(User user) {
 
-    String query = "INSERT INTO User(sin, name, address_line, city, country, " +
-        "postal_code, occupation, birthdate) VALUE (" +
+    String query = "INSERT INTO User(sin, name, addressLine, city, country, " +
+        "postalCode, occupation, birthdate) VALUE (" +
         user.getSIN() + ", " +
         user.getName() + ", " +
         user.getAddressLine() + ", " +

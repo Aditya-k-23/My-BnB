@@ -11,11 +11,11 @@ import com.cscc43.mybnb.models.ListingAmenity;
 public interface ListingAmenityRepositoryInterface {
   public List<ListingAmenity> getAllListingAmenities();
 
-  public List<ListingAmenity> getListingsWithAmenity(String amenity_name);
+  public List<ListingAmenity> getListingsWithAmenity(String amenityName);
 
-  public List<Amenity> getAmenitiesOfListing(int listing_id);
+  public List<Amenity> getAmenitiesOfListing(int listingId);
 
-  public void addListingAmenity(int listing_id, String amenity_name);
+  public void addListingAmenity(int listingId, String amenityName);
 
   public void addListingAmenity(ListingAmenity listingAmenity);
 }

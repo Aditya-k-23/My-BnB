@@ -42,7 +42,7 @@ public class ListingRepository implements ListingRepositoryInterface {
 
   @Override
   public void addListing(Listing listing) {
-    String query = "INSERT INTO Listing (type, latitude, longitude, address_line, city, country, postal_code, avg_price, host_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    String query = "INSERT INTO Listing (type, latitude, longitude, addressLine, city, country, postalCode, avgPrice, host_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
     jdbcTemplate.update(query,
         listing.getType(),
         listing.getLatitude(),
@@ -62,7 +62,7 @@ public class ListingRepository implements ListingRepositoryInterface {
 
   @Override
   public void updateListing(Listing listing) {
-    String query = "UPDATE Listing SET type = ?, latitude = ?, longitude = ?, address_line = ?, city = ?, country = ?, postal_code = ?, avg_price = ?, host_id = ? WHERE id = ?;";
+    String query = "UPDATE Listing SET type = ?, latitude = ?, longitude = ?, addressLine = ?, city = ?, country = ?, postalCode = ?, avgPrice = ?, host_id = ? WHERE id = ?;";
     jdbcTemplate.update(query,
         listing.getType(),
         listing.getLatitude(),
@@ -88,8 +88,8 @@ public class ListingRepository implements ListingRepositoryInterface {
     String querySuffix = switch (orderBy) {
       case NONE -> ";";
       case DISTANCE -> "ORDER BY distance ASC;";
-      case PRICE_ASC -> "ORDER BY avg_price ASC;";
-      case PRICE_DESC -> "ORDER BY avg_price DESC;";
+      case PRICE_ASC -> "ORDER BY avgPrice ASC;";
+      case PRICE_DESC -> "ORDER BY avgPrice DESC;";
     };
 
     String finalQuery = query + querySuffix;
@@ -99,20 +99,20 @@ public class ListingRepository implements ListingRepositoryInterface {
   }
 
   @Override
-  public List<ListingAddress> getListingsByPostalCode(String postal_code) {
-    String query = "SELECT * FROM Listing WHERE postal_code = ?;";
-    return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(ListingAddress.class), postal_code);
+  public List<ListingAddress> getListingsByPostalCode(String postalCode) {
+    String query = "SELECT * FROM Listing WHERE postalCode = ?;";
+    return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(ListingAddress.class), postalCode);
   }
 
   @Override
-  public List<ListingAddress> getLisitingByAddressLine(String address_line) {
-    String query = "SELECT * FROM Listing WHERE address_line = ?;";
-    return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(ListingAddress.class), address_line);
+  public List<ListingAddress> getLisitingByAddressLine(String addressLine) {
+    String query = "SELECT * FROM Listing WHERE addressLine = ?;";
+    return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(ListingAddress.class), addressLine);
   }
 
   @Override
   public List<Listing> getListingInBudget(double min_price, double max_price) {
-    String query = "SELECT * FROM Listing INNER JOIN Period WHERE avg_price >= ? AND avg_price <= ?;";
+    String query = "SELECT * FROM Listing INNER JOIN Period WHERE avgPrice >= ? AND avgPrice <= ?;";
     return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Listing.class), min_price, max_price);
   }
 
@@ -130,31 +130,31 @@ public class ListingRepository implements ListingRepositoryInterface {
 
   @Override
   public List<CountryCityPostalListing> getCountryCityPostalListingCount() {
-    String query = "SELECT country, city, postal_code, COUNT(*) AS count FROM Listing GROUP BY country, city, postal_code;";
+    String query = "SELECT country, city, postalCode, COUNT(*) AS count FROM Listing GROUP BY country, city, postalCode;";
     return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(CountryCityPostalListing.class));
   }
 
   @Override
-  public List<Listing> getAllListingsByAmenities(List<String> amenity_names) {
-    String sqlQuery = getQueryToSearchByAmenities(amenity_names);
+  public List<Listing> getAllListingsByAmenities(List<String> amenityNames) {
+    String sqlQuery = getQueryToSearchByAmenities(amenityNames);
     return jdbcTemplate.query(sqlQuery, new BeanPropertyRowMapper<>(Listing.class));
   }
 
   @Override
-  public Float getRecommendedPrice(int listing_id) {
-    String country = getListing(listing_id).getCountry();
-    String city = getListing(listing_id).getCity();
-    String postal_code = getListing(listing_id).getPostalCode();
+  public Float getRecommendedPrice(int listingId) {
+    String country = getListing(listingId).getCountry();
+    String city = getListing(listingId).getCity();
+    String postalCode = getListing(listingId).getPostalCode();
 
-    Float recommendedPrice = getRecommendedPricePerCountryCityPostal(listing_id, country, city, postal_code);
+    Float recommendedPrice = getRecommendedPricePerCountryCityPostal(listingId, country, city, postalCode);
     if (recommendedPrice == null) {
-      recommendedPrice = getRecommendedPricePerCountryCity(listing_id, country, city);
+      recommendedPrice = getRecommendedPricePerCountryCity(listingId, country, city);
     }
     if (recommendedPrice == null) {
-      recommendedPrice = getRecommendedPricePerCountry(listing_id, country);
+      recommendedPrice = getRecommendedPricePerCountry(listingId, country);
     }
     if (recommendedPrice == null) {
-      recommendedPrice = getRecommendedPriceGlobally(listing_id);
+      recommendedPrice = getRecommendedPriceGlobally(listingId);
     }
     return recommendedPrice;
   }
@@ -177,38 +177,38 @@ public class ListingRepository implements ListingRepositoryInterface {
     return jdbcTemplate.query(sqlQuery, new BeanPropertyRowMapper<>(Listing.class));
   }
 
-  private Float getRecommendedPriceGlobally(int listing_id) {
+  private Float getRecommendedPriceGlobally(int listingId) {
     try {
-      String query = "SELECT AVG(avg_price) FROM Listing WHERE id != ?;";
-      return jdbcTemplate.queryForObject(query, Float.class, listing_id);
+      String query = "SELECT AVG(avgPrice) FROM Listing WHERE id != ?;";
+      return jdbcTemplate.queryForObject(query, Float.class, listingId);
     } catch (EmptyResultDataAccessException e) {
       return null;
     }
   }
 
-  private Float getRecommendedPricePerCountry(int listing_id, String country) {
+  private Float getRecommendedPricePerCountry(int listingId, String country) {
     try {
-      String query = "SELECT AVG(avg_price) FROM Listing WHERE id != ? AND country = ?;";
-      return jdbcTemplate.queryForObject(query, Float.class, listing_id, country);
+      String query = "SELECT AVG(avgPrice) FROM Listing WHERE id != ? AND country = ?;";
+      return jdbcTemplate.queryForObject(query, Float.class, listingId, country);
     } catch (EmptyResultDataAccessException e) {
       return null;
     }
   }
 
-  private Float getRecommendedPricePerCountryCity(int listing_id, String country, String city) {
+  private Float getRecommendedPricePerCountryCity(int listingId, String country, String city) {
     try {
-      String query = "SELECT AVG(avg_price) FROM Listing WHERE id != ? AND country = ? AND city = ?;";
-      return jdbcTemplate.queryForObject(query, Float.class, listing_id, country, city);
+      String query = "SELECT AVG(avgPrice) FROM Listing WHERE id != ? AND country = ? AND city = ?;";
+      return jdbcTemplate.queryForObject(query, Float.class, listingId, country, city);
     } catch (EmptyResultDataAccessException e) {
       return null;
     }
   }
 
-  private Float getRecommendedPricePerCountryCityPostal(int listing_id, String country, String city,
-      String postal_code) {
+  private Float getRecommendedPricePerCountryCityPostal(int listingId, String country, String city,
+      String postalCode) {
     try {
-      String query = "SELECT AVG(avg_price) FROM Listing WHERE id != ? AND country = ? AND city = ? AND postal_code = ?;";
-      return jdbcTemplate.queryForObject(query, Float.class, listing_id, country, city, postal_code);
+      String query = "SELECT AVG(avgPrice) FROM Listing WHERE id != ? AND country = ? AND city = ? AND postalCode = ?;";
+      return jdbcTemplate.queryForObject(query, Float.class, listingId, country, city, postalCode);
     } catch (EmptyResultDataAccessException e) {
       return null;
     }

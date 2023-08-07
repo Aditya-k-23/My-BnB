@@ -7,7 +7,7 @@
 use Mybnb;
 
 insert into
-  Address (address_line, city, country, postal_code)
+  Address (addressLine, city, country, postalCode)
 values
   ('579 Loomis St', 'Westfield', 'USA', '01085'),
   ('581 Loomis St', 'Westfield', 'USA', '01085'),
@@ -29,10 +29,10 @@ insert into
     birthdate,
     occupation,
     sin,
-    address_line,
+    addressLine,
     city,
     country,
-    postal_code
+    postalCode
   )
 values
   (
@@ -122,10 +122,10 @@ insert into
     type,
     latitude,
     longitude,
-    address_line,
+    addressLine,
     city,
     country,
-    postal_code,
+    postalCode,
     host_id
   )
 values
@@ -333,7 +333,7 @@ values
   ('Services', 'Lockbox');
 
 insert into
-  ListingAmenity (listing_id, amenity_name)
+  ListingAmenity (listingId, amenityName)
 values
   (1, 'Coffee maker'),
   (1, 'Breakfast'),
@@ -377,7 +377,7 @@ values
   (7, 'Hot water');
 
 insert into
-  Period (listing_id, price, start_date, end_date)
+  Period (listingId, price, startDate, endDate)
 values
   (1, 149.99, '2023-09-03', '2023-09-05'),
   (1, 199.99, '2023-11-03', '2023-11-05'),
@@ -394,9 +394,9 @@ insert into
   Booking (
     id,
     status,
-    start_date,
-    end_date,
-    listing_id,
+    startDate,
+    endDate,
+    listingId,
     renter_id,
     price
   )
@@ -461,9 +461,9 @@ insert into
     id,
     nameOnCard,
     cardNumber,
-    postal_code,
-    expiry_date,
-    user_id
+    postalCode,
+    expiryDate,
+    userId
   )
 values
   (
@@ -504,9 +504,9 @@ insert into
     id,
     rating,
     comment,
-    booking_id,
-    reviewer_id,
-    reviewed_id
+    bookingId,
+    reviewerId,
+    reviewedId
   )
 values
   (
@@ -547,9 +547,9 @@ insert into
     id,
     rating,
     comment,
-    booking_id,
+    bookingId,
     renter_id,
-    listing_id
+    listingId
   )
 values
   (15001, 4.8, 'Beautiful location.', 1002, 3, 1),

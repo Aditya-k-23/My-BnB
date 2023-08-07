@@ -44,20 +44,20 @@ public class ListingSearchQueryBuilder {
     if (postalCode != null && isValidPostalCode(postalCode)) {
       String postalCodeFSA = postalCode.substring(0, 3);
       query = addQueryFilter(query,
-          "SELECT DISTINCT L.id FROM Listing L WHERE postal_code LIKE CONCAT( '" + postalCodeFSA + "', '%')");
+          "SELECT DISTINCT L.id FROM Listing L WHERE postalCode LIKE CONCAT( '" + postalCodeFSA + "', '%')");
     }
     if (addressLine != null) {
       query = addQueryFilter(query,
-          "SELECT DISTINCT id FROM Listing WHERE address_line LIKE CONCAT( '%', '" + addressLine
+          "SELECT DISTINCT id FROM Listing WHERE addressLine LIKE CONCAT( '%', '" + addressLine
               + "' ,'%')");
     }
     if (minPrice != null) {
       query = addQueryFilter(query,
-          "SELECT DISTINCT id FROM Listing L INNER JOIN Period P on P.listing_id=L.id WHERE price > " + minPrice);
+          "SELECT DISTINCT id FROM Listing L INNER JOIN Period P on P.listingId=L.id WHERE price > " + minPrice);
     }
     if (maxPrice != null) {
       query = addQueryFilter(query,
-          "SELECT DISTINCT id FROM Listing L INNER JOIN Period P on P.listing_id=L.id WHERE price < " + maxPrice);
+          "SELECT DISTINCT id FROM Listing L INNER JOIN Period P on P.listingId=L.id WHERE price < " + maxPrice);
     }
     if (amenities != null && !amenities.isEmpty()) {
       String sqlQuery = listingRepository.getQueryToSearchByAmenities(amenities);
@@ -65,12 +65,12 @@ public class ListingSearchQueryBuilder {
     }
     if (startDate != null) {
       query = addQueryFilter(query,
-          "SELECT DISTINCT L.id FROM Listing L INNER JOIN Period P on P.listing_id=L.id WHERE '" + startDate.toString()
-              + "' <= DATE(end_date)");
+          "SELECT DISTINCT L.id FROM Listing L INNER JOIN Period P on P.listingId=L.id WHERE '" + startDate.toString()
+              + "' <= DATE(endDate)");
     }
     if (endDate != null) {
       query = addQueryFilter(query,
-          "SELECT DISTINCT L.id FROM Listing L INNER JOIN Period P on P.listing_id=L.id WHERE DATE(start_date) <= '"
+          "SELECT DISTINCT L.id FROM Listing L INNER JOIN Period P on P.listingId=L.id WHERE DATE(startDate) <= '"
               + endDate.toString() + "'");
     }
     String querySuffix = (orderBy == null) ? " TRUE;" : switch (orderBy) {

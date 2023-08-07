@@ -10,7 +10,7 @@ import com.cscc43.mybnb.models.User;
 public interface UserRepositoryInterface {
   public List<User> getAllUsers();
 
-  public User getUser(int user_id);
+  public User getUser(int userId);
 
   public void addUser(User user);
 

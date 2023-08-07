@@ -6,11 +6,11 @@ public class Listing {
     TYPE("type"),
     LATITUDE("latitude"),
     LONGITUDE("longitude"),
-    ADDRESS_LINE("address_line"),
+    addressLine("addressLine"),
     CITY("city"),
     COUNTRY("country"),
-    POSTAL_CODE("postal_code"),
-    AVG_PRICE("avg_price"),
+    postalCode("postalCode"),
+    avgPrice("avgPrice"),
     HOST_ID("host_id");
 
     private final String value;
@@ -29,11 +29,11 @@ public class Listing {
   private String type;
   private double latitude;
   private double longitude;
-  private String address_line;
+  private String addressLine;
   private String city;
   private String country;
-  private String postal_code;
-  private double avg_price;
+  private String postalCode;
+  private double avgPrice;
   private int host_id;
 
   public Listing() {
@@ -72,11 +72,11 @@ public class Listing {
   }
 
   public String getAddressLine() {
-    return this.address_line;
+    return this.addressLine;
   }
 
-  public void setAddressLine(String address_line) {
-    this.address_line = address_line;
+  public void setAddressLine(String addressLine) {
+    this.addressLine = addressLine;
   }
 
   public String getCity() {
@@ -96,19 +96,19 @@ public class Listing {
   }
 
   public String getPostalCode() {
-    return this.postal_code;
+    return this.postalCode;
   }
 
-  public void setPostalCode(String postal_code) {
-    this.postal_code = postal_code;
+  public void setPostalCode(String postalCode) {
+    this.postalCode = postalCode;
   }
 
   public double getAvgPrice() {
-    return this.avg_price;
+    return this.avgPrice;
   }
 
-  public void setAvgPrice(double avg_price) {
-    this.avg_price = avg_price;
+  public void setAvgPrice(double avgPrice) {
+    this.avgPrice = avgPrice;
   }
 
   public int getHostId() {
@@ -126,11 +126,11 @@ public class Listing {
         ", type='" + this.type + '\'' +
         ", latitude='" + this.latitude + '\'' +
         ", longitude='" + this.longitude + '\'' +
-        ", address_line='" + this.address_line + '\'' +
+        ", addressLine='" + this.addressLine + '\'' +
         ", city='" + this.city + '\'' +
         ", country='" + this.country + '\'' +
-        ", postal_code='" + this.postal_code + '\'' +
-        ", avg_price='" + this.avg_price + '\'' +
+        ", postalCode='" + this.postalCode + '\'' +
+        ", avgPrice='" + this.avgPrice + '\'' +
         ", host_id='" + this.host_id + '\'' +
         '}';
   }

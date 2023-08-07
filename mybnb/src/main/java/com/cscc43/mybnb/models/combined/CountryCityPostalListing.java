@@ -3,7 +3,7 @@ package com.cscc43.mybnb.models.combined;
 public class CountryCityPostalListing {
   private String country;
   private String city;
-  private String postal_code;
+  private String postalCode;
   private int listing_count;
 
   public CountryCityPostalListing() {
@@ -26,11 +26,11 @@ public class CountryCityPostalListing {
   }
 
   public String getPostalCode() {
-    return this.postal_code;
+    return this.postalCode;
   }
 
-  public void setPostalCode(String postal_code) {
-    this.postal_code = postal_code;
+  public void setPostalCode(String postalCode) {
+    this.postalCode = postalCode;
   }
 
   public int getListingCount() {

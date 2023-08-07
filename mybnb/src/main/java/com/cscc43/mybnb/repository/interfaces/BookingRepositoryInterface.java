@@ -13,11 +13,11 @@ public interface BookingRepositoryInterface {
 
   public Booking getBookings(int id);
 
-  public String addBooking(int renter_id, int listing_id, LocalDate start_date, LocalDate end_date);
+  public String addBooking(int renter_id, int listingId, LocalDate startDate, LocalDate endDate);
 
   public void deleteBooking(int id);
 
-  public int getCountBookings(LocalDate start_date, LocalDate end_date, String city, String postal_code);
+  public int getCountBookings(LocalDate startDate, LocalDate endDate, String city, String postalCode);
 
   public String cancelBooking(int id);
 }

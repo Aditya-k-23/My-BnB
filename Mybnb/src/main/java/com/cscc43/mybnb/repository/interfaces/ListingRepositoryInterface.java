@@ -27,9 +27,9 @@ public interface ListingRepositoryInterface {
   public List<ListingDistance> getListingsInDistance(double latitude, double longitude, double radius,
       ListingController.OrderBy orderBy);
 
-  public List<ListingAddress> getListingsByPostalCode(String postal_code);
+  public List<ListingAddress> getListingsByPostalCode(String postalCode);
 
-  public List<ListingAddress> getLisitingByAddressLine(String address_line);
+  public List<ListingAddress> getLisitingByAddressLine(String addressLine);
 
   public List<Listing> getListingInBudget(double min_price, double max_price);
 
@@ -39,7 +39,7 @@ public interface ListingRepositoryInterface {
 
   public List<CountryCityPostalListing> getCountryCityPostalListingCount();
 
-  public List<Listing> getAllListingsByAmenities(List<String> amenity_names);
+  public List<Listing> getAllListingsByAmenities(List<String> amenityNames);
 
-  public Float getRecommendedPrice(int listing_id);
+  public Float getRecommendedPrice(int listingId);
 }

@@ -6,9 +6,9 @@ public class Booking {
   public enum Field {
     ID("id"),
     STATUS("status"),
-    START_DATE("start_date"),
-    END_DATE("end_date"),
-    LISTING_ID("listing_id"),
+    startDate("startDate"),
+    endDate("endDate"),
+    listingId("listingId"),
     RENTER_ID("renter_id"),
     PRICE("price");
 
@@ -26,9 +26,9 @@ public class Booking {
 
   private int id;
   private String status;
-  private LocalDate start_date;
-  private LocalDate end_date;
-  private int listing_id;
+  private LocalDate startDate;
+  private LocalDate endDate;
+  private int listingId;
   private int renter_id;
   private double price;
 
@@ -49,27 +49,27 @@ public class Booking {
   }
 
   public LocalDate getStartDate() {
-    return this.start_date;
+    return this.startDate;
   }
 
-  public void setStartDate(LocalDate start_date) {
-    this.start_date = start_date;
+  public void setStartDate(LocalDate startDate) {
+    this.startDate = startDate;
   }
 
   public LocalDate getEndDate() {
-    return this.end_date;
+    return this.endDate;
   }
 
-  public void setEndDate(LocalDate end_date) {
-    this.end_date = end_date;
+  public void setEndDate(LocalDate endDate) {
+    this.endDate = endDate;
   }
 
   public int getListingId() {
-    return this.listing_id;
+    return this.listingId;
   }
 
-  public void setListingId(int listing_id) {
-    this.listing_id = listing_id;
+  public void setListingId(int listingId) {
+    this.listingId = listingId;
   }
 
   public int getRenterId() {
@@ -93,9 +93,9 @@ public class Booking {
     return "Booking{" +
         "id=" + this.id +
         ", status='" + this.status + '\'' +
-        ", start_date='" + this.start_date + '\'' +
-        ", end_date='" + this.end_date + '\'' +
-        ", listing_id='" + this.listing_id + '\'' +
+        ", startDate='" + this.startDate + '\'' +
+        ", endDate='" + this.endDate + '\'' +
+        ", listingId='" + this.listingId + '\'' +
         ", renter_id='" + this.renter_id + '\'' +
         ", price='" + this.price + '\'' +
         '}';

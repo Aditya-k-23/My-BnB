@@ -35,14 +35,14 @@ public class PaymentInfoRepository implements PaymentInfoRepositoryInterface {
 
   @Override
   public List<PaymentInfo> getPaymentInfoByUserId(int userId) {
-    return jdbcTemplate.query("SELECT * FROM PaymentInfo WHERE user_id = ?;",
+    return jdbcTemplate.query("SELECT * FROM PaymentInfo WHERE userId = ?;",
         new BeanPropertyRowMapper<>(PaymentInfo.class), userId);
   }
 
   @Override
   public void addPaymentInfo(PaymentInfo paymentInfo) {
     jdbcTemplate.update(
-        "INSERT INTO PaymentInfo (nameOnCard, cardNumber, postal_code, expiry_date, user_id) VALUES (?, ?, ?, ?, ?)",
+        "INSERT INTO PaymentInfo (nameOnCard, cardNumber, postalCode, expiryDate, userId) VALUES (?, ?, ?, ?, ?)",
         paymentInfo.getNameOnCard(),
         paymentInfo.getCardNumber(),
         paymentInfo.getPostalCode(),

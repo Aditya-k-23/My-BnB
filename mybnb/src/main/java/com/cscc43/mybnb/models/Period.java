@@ -5,10 +5,10 @@ import java.time.LocalDate;
 public class Period {
   public enum Field {
     ID("id"),
-    START_DATE("start_date"),
-    END_DATE("end_date"),
+    startDate("startDate"),
+    endDate("endDate"),
     PRICE("price"),
-    LISTING_ID("listing_id");
+    listingId("listingId");
 
     private final String value;
 
@@ -23,10 +23,10 @@ public class Period {
   }
 
   private int id;
-  private LocalDate start_date;
-  private LocalDate end_date;
+  private LocalDate startDate;
+  private LocalDate endDate;
   private double price;
-  private int listing_id;
+  private int listingId;
 
   public int getId() {
     return this.id;
@@ -37,19 +37,19 @@ public class Period {
   }
 
   public LocalDate getStartDate() {
-    return this.start_date;
+    return this.startDate;
   }
 
-  public void setStartDate(LocalDate start_date) {
-    this.start_date = start_date;
+  public void setStartDate(LocalDate startDate) {
+    this.startDate = startDate;
   }
 
   public LocalDate getEndDate() {
-    return this.end_date;
+    return this.endDate;
   }
 
-  public void setEndDate(LocalDate end_date) {
-    this.end_date = end_date;
+  public void setEndDate(LocalDate endDate) {
+    this.endDate = endDate;
   }
 
   public double getPrice() {
@@ -61,21 +61,21 @@ public class Period {
   }
 
   public int getListingId() {
-    return this.listing_id;
+    return this.listingId;
   }
 
-  public void setListingId(int listing_id) {
-    this.listing_id = listing_id;
+  public void setListingId(int listingId) {
+    this.listingId = listingId;
   }
 
   @Override
   public String toString() {
     return "Period{" +
         "id=" + this.id +
-        ", start_date='" + this.start_date + '\'' +
-        ", end_date='" + this.end_date + '\'' +
+        ", startDate='" + this.startDate + '\'' +
+        ", endDate='" + this.endDate + '\'' +
         ", price='" + this.price + '\'' +
-        ", listing_id='" + this.listing_id + '\'' +
+        ", listingId='" + this.listingId + '\'' +
         '}';
   }
 }

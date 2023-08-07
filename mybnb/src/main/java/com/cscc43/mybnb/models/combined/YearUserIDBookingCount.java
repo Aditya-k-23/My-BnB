@@ -2,7 +2,7 @@ package com.cscc43.mybnb.models.combined;
 
 public class YearUserIDBookingCount {
   private int year;
-  private int user_id;
+  private int userId;
   private int cancelled_count;
 
   public YearUserIDBookingCount() {
@@ -17,11 +17,11 @@ public class YearUserIDBookingCount {
   }
 
   public int getUserId() {
-    return this.user_id;
+    return this.userId;
   }
 
-  public void setUserId(int user_id) {
-    this.user_id = user_id;
+  public void setUserId(int userId) {
+    this.userId = userId;
   }
 
   public int getCancelledCount() {
