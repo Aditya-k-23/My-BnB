@@ -10,9 +10,11 @@ drop table if exists UserReview;
 
 drop table if exists PaymentInfo;
 
-drop table if exists Bookings;
+drop table if exists Booking;
 
 drop table if exists ListingAmenity;
+
+drop table if exists AmenitySearch;
 
 drop table if exists Amenity;
 

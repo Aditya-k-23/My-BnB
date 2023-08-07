@@ -87,7 +87,7 @@ create table
   );
 
 create table
-  if not exists Bookings (
+  if not exists Booking (
     id int auto_increment primary key,
     status varchar(50) charset utf8 default "pending" not null,
     start_date date not null,
@@ -95,8 +95,8 @@ create table
     listing_id int not null,
     renter_id int not null,
     price float not null,
-    constraint fk_bookings_listing foreign key (listing_id) references Listing (id) on delete cascade,
-    constraint fk_bookings_renter foreign key (renter_id) references Renter (id) on delete cascade,
+    constraint fk_booking_listing foreign key (listing_id) references Listing (id) on delete cascade,
+    constraint fk_booking_renter foreign key (renter_id) references Renter (id) on delete cascade,
     constraint check (start_date <= end_date)
   );
 
@@ -121,7 +121,7 @@ create table
     reviewed_id int not null,
     constraint fk_review_reviewer foreign key (reviewer_id) references User (id) on delete cascade,
     constraint fk_review_reviewed foreign key (reviewed_id) references User (id) on delete cascade,
-    constraint fk_review_booking_user foreign key (booking_id) references Bookings (id) on delete cascade,
+    constraint fk_review_booking_user foreign key (booking_id) references Booking (id) on delete cascade,
     constraint single_review_per_booking unique (booking_id, reviewer_id)
   );
 
@@ -135,8 +135,15 @@ create table
     listing_id int not null,
     constraint fk_review_listing foreign key (listing_id) references Listing (id) on delete cascade,
     constraint fk_review_renter foreign key (renter_id) references Renter (id) on delete cascade,
-    constraint fk_review_booking_listing foreign key (booking_id) references Bookings (id) on delete cascade,
+    constraint fk_review_booking_listing foreign key (booking_id) references Booking (id) on delete cascade,
     constraint single_review_per_booking unique (booking_id, renter_id)
+  );
+
+create table
+  if not exists AmenitySearch (
+    name varchar(50) charset utf8 not null primary key,
+    searchCount int not null,
+    constraint fk_amenity_search_amenity foreign key (name) references Amenity (name) on delete cascade
   );
 
 -- Operations
@@ -184,10 +191,10 @@ where
   id = new.listing_id;
 
 -- Procedures
-drop procedure if exists add_period;
+drop procedure if exists sp_add_period;
 
 DELIMITER //
-create procedure add_period (
+create procedure sp_add_period (
   in in_listing_id int,
   in in_start_date date,
   in in_end_date date,
@@ -215,7 +222,7 @@ sp:
     select
       *
     from
-      Bookings
+      Booking
     where
       listing_id = in_listing_id
       and start_date <= in_end_date
@@ -245,18 +252,18 @@ sp:
 end //
 DELIMITER ;
 
-drop procedure if exists add_booking;
-
+drop procedure if exists sp_add_booking;
 DELIMITER //
-create procedure add_booking (
+create procedure sp_add_booking (
   in in_listing_id int,
   in in_start_date date,
   in in_end_date date,
-  in in_renter_id int,
-  in in_price float
+  in in_renter_id int
 )
 sp:
-  BEGIN declare existing_period_id int;
+  BEGIN
+
+  declare existing_period_id int;
 
   declare existing_price float;
 
@@ -345,7 +352,7 @@ sp:
   end if;
 
   insert into
-    Bookings (
+    Booking (
       status,
       listing_id,
       start_date,
@@ -400,7 +407,7 @@ sp:
     select
       *
     from
-      Bookings
+      Booking
     where
       id = in_booking_id
   ) then
@@ -418,7 +425,7 @@ sp:
     existing_end_date,
     existing_price
   from
-    Bookings
+    Booking
   where
     id = in_booking_id;
 
@@ -527,7 +534,7 @@ sp:
 
   end if;
 
-  update Bookings
+  update Booking
   set
     status = 'Cancelled'
   where
@@ -543,9 +550,9 @@ sp:
 end //
 DELIMITER ;
 
-drop procedure if exists add_UserReview;
+drop procedure if exists add_user_review;
 DELIMITER //
-create procedure add_UserReview (
+create procedure add_user_review (
   in in_booking_id int,
   in in_reviewer_id int,
   in in_reviewee_id int,
@@ -564,7 +571,7 @@ if not exists (
   select
     *
   from
-    Bookings
+    Booking
   where
     id = in_booking_id
     and (host_id = in_reviewer_id or renter_id = in_reviewer_id)
@@ -604,7 +611,7 @@ if exists (
   select
     *
   from
-    Bookings
+    Booking
   where
     id = in_booking_id
     and host_id = in_reviewer_id
@@ -612,7 +619,7 @@ if exists (
 select
   renter_id into existing_reviewed_id
 from
-  Bookings
+  Booking
 where
   id = in_booking_id
   and host_id = in_reviewer_id;
@@ -621,7 +628,7 @@ else
 select
   host_id into existing_reviewed_id
 from
-  Bookings
+  Booking
 where
   id = in_booking_id
   and renter_id = in_reviewer_id;
@@ -647,9 +654,9 @@ select
 end //
 DELIMITER ;
 
-drop procedure if exists ListingReview;
+drop procedure if exists add_listing_review;
 DELIMITER //
-create procedure add_ListingReview (
+create procedure add_listing_review (
   in in_booking_id int,
   in in_renter_id int,
   in in_listing_id int,
@@ -668,15 +675,16 @@ if not exists (
   select
     *
   from
-    Bookings
+    Booking
   where
     id = in_booking_id
     and (renter_id = in_renter_id)
+    and (listing_id = in_listing_id)
     and status != 'Cancelled'
 ) then
 select
   (
-    concat ('Booking does not exist: ', in_booking_id)
+    concat ('Invalid request for reviewing booking: ', in_booking_id)
   );
 leave sp;
 end if;

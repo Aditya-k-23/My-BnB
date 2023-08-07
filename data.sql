@@ -391,7 +391,7 @@ values
   (7, 259.00, '2023-11-10', '2024-11-29');
 
 insert into
-  Bookings (
+  Booking (
     id,
     status,
     start_date,
@@ -561,3 +561,11 @@ values
     2,
     1
   );
+
+call sp_add_period (1, '2025-07-05', '2025-07-20', 150.27);
+
+call sp_add_booking (1, '2023-01-03', '2023-01-05', 3);
+
+call cancel_booking (1005);
+
+call add_listing_review (1002, 3, 1, 10, 'Great stay!');

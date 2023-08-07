@@ -10,7 +10,7 @@ import com.cscc43.mybnb.models.Amenity;
 public interface AmenityRepositoryInterface {
   public List<Amenity> getAllAmenities();
 
-  public Amenity getAmenityById(int id);
+  public Amenity getAmenity(String name);
 
   public void addAmenity(Amenity amenity);
 

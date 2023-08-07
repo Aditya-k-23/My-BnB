@@ -14,7 +14,7 @@ public interface PeriodRepositoryInterface {
 
   public List<Period> getPeriods(int listing_id);
 
-  public List<Period> getPeriods(LocalDate start_date, int listing_id);
+  public List<Period> getPeriods(int listing_id, LocalDate start_date, LocalDate end_date);
 
   public List<Period> getPeriods(LocalDate start_date, LocalDate end_date);
 
