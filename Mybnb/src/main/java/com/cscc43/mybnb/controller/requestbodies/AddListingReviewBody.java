@@ -1,40 +1,11 @@
-package com.cscc43.mybnb.models;
+package com.cscc43.mybnb.controller.requestbodies;
 
-public class ListingReview {
-  public enum Field {
-    ID("id"),
-    RATING("rating"),
-    COMMENT("comment"),
-    bookingId("bookingId"),
-    renterId("renterId"),
-    listingId("listingId");
-
-    private final String value;
-
-    Field(final String value) {
-      this.value = value;
-    }
-
-    @Override
-    public String toString() {
-      return this.value;
-    }
-  }
-
-  private int id;
+public class AddListingReviewBody {
   private int rating;
   private String comment;
   private int bookingId;
   private int renterId;
   private int listingId;
-
-  public int getId() {
-    return this.id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
 
   public int getRating() {
     return this.rating;
@@ -79,7 +50,6 @@ public class ListingReview {
   @Override
   public String toString() {
     return "ListingReview {"
-        + "id=" + id + ", "
         + "rating=" + rating + ", "
         + "comment=" + comment + ", "
         + "bookingId=" + bookingId + ", "
@@ -87,4 +57,5 @@ public class ListingReview {
         + "listingId=" + listingId + ", "
         + "}";
   }
+
 }

@@ -179,6 +179,7 @@ public class ListingRepository implements ListingRepositoryInterface {
 
   private Float getRecommendedPriceGlobally(int listingId) {
     try {
+      System.out.println("Showing global recommended price");
       String query = "SELECT AVG(avgPrice) FROM Listing WHERE id != ?;";
       return jdbcTemplate.queryForObject(query, Float.class, listingId);
     } catch (EmptyResultDataAccessException e) {
@@ -188,6 +189,7 @@ public class ListingRepository implements ListingRepositoryInterface {
 
   private Float getRecommendedPricePerCountry(int listingId, String country) {
     try {
+      System.out.println("Showing country recommended price");
       String query = "SELECT AVG(avgPrice) FROM Listing WHERE id != ? AND country = ?;";
       return jdbcTemplate.queryForObject(query, Float.class, listingId, country);
     } catch (EmptyResultDataAccessException e) {
@@ -197,6 +199,7 @@ public class ListingRepository implements ListingRepositoryInterface {
 
   private Float getRecommendedPricePerCountryCity(int listingId, String country, String city) {
     try {
+      System.out.println("Showing country city recommended price");
       String query = "SELECT AVG(avgPrice) FROM Listing WHERE id != ? AND country = ? AND city = ?;";
       return jdbcTemplate.queryForObject(query, Float.class, listingId, country, city);
     } catch (EmptyResultDataAccessException e) {
@@ -207,6 +210,7 @@ public class ListingRepository implements ListingRepositoryInterface {
   private Float getRecommendedPricePerCountryCityPostal(int listingId, String country, String city,
       String postalCode) {
     try {
+      System.out.println("Showing country city postal recommended price");
       String query = "SELECT AVG(avgPrice) FROM Listing WHERE id != ? AND country = ? AND city = ? AND postalCode = ?;";
       return jdbcTemplate.queryForObject(query, Float.class, listingId, country, city, postalCode);
     } catch (EmptyResultDataAccessException e) {

@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
+import com.cscc43.mybnb.controller.requestbodies.AddUserReviewBody;
 import com.cscc43.mybnb.models.UserReview;
 import com.cscc43.mybnb.repository.interfaces.UserReviewRepositoryInterface;
 
@@ -48,7 +49,7 @@ public class UserReviewRepository implements UserReviewRepositoryInterface {
   }
 
   @Override
-  public void addUserReview(UserReview userReview) {
+  public void addUserReview(AddUserReviewBody userReview) {
     String query = "CALL add_user_review(?, ?, ?, ?, ?);";
     jdbcTemplate.update(query,
         userReview.getBookingId(),

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cscc43.mybnb.models.Renter;
 import com.cscc43.mybnb.models.combined.RenterIDBookingCount;
+import com.cscc43.mybnb.models.combined.RenterIDCityBookingCount;
 import com.cscc43.mybnb.models.combined.YearUserIDBookingCount;
 
 @Repository
@@ -21,7 +22,7 @@ public interface RenterRepositoryInterface {
 
   public List<RenterIDBookingCount> getRenterRankedByBoookingsInPeriod(LocalDate startDate, LocalDate endDate);
 
-  public List<RenterIDBookingCount> getRenterRankedByBoookingsInRangePerCity(LocalDate startDate, LocalDate endDate,
+  public List<RenterIDCityBookingCount> getRenterRankedByBoookingsInRangePerCity(LocalDate startDate, LocalDate endDate,
       int minBookingCount);
 
   public List<YearUserIDBookingCount> getRenterRankedByCancellationsInYear();

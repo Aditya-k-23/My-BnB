@@ -24,7 +24,7 @@ public class BookingRepository implements BookingRepositoryInterface {
   }
 
   @Override
-  public Booking getBookings(int id) {
+  public Booking getBooking(int id) {
     try {
       return (Booking) jdbcTemplate.queryForObject("SELECT * FROM Booking WHERE id = ?;",
           new BeanPropertyRowMapper<>(Booking.class), id);
@@ -34,7 +34,7 @@ public class BookingRepository implements BookingRepositoryInterface {
   }
 
   @Override
-  public String addBooking(int renter_id, int listingId, LocalDate startDate,
+  public String addBooking(int renterId, int listingId, LocalDate startDate,
       LocalDate endDate) {
     try {
       jdbcTemplate.queryForObject(
@@ -42,7 +42,7 @@ public class BookingRepository implements BookingRepositoryInterface {
           listingId,
           startDate,
           endDate,
-          renter_id);
+          renterId);
       return "Booking added successfully";
     } catch (Exception e) {
       return "Error while adding booking";

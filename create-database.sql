@@ -93,10 +93,10 @@ create table
     startDate date not null,
     endDate date not null,
     listingId int not null,
-    renter_id int not null,
+    renterId int not null,
     price float not null,
     constraint fk_booking_listing foreign key (listingId) references Listing (id) on delete cascade,
-    constraint fk_booking_renter foreign key (renter_id) references Renter (id) on delete cascade,
+    constraint fk_booking_renter foreign key (renterId) references Renter (id) on delete cascade,
     constraint check (startDate <= endDate)
   );
 
@@ -131,12 +131,12 @@ create table
     rating int not null,
     comment varchar(500) charset utf8 not null,
     bookingId int not null,
-    renter_id int not null,
+    renterId int not null,
     listingId int not null,
     constraint fk_review_listing foreign key (listingId) references Listing (id) on delete cascade,
-    constraint fk_review_renter foreign key (renter_id) references Renter (id) on delete cascade,
+    constraint fk_review_renter foreign key (renterId) references Renter (id) on delete cascade,
     constraint fk_review_booking_listing foreign key (bookingId) references Booking (id) on delete cascade,
-    constraint single_review_per_booking unique (bookingId, renter_id)
+    constraint single_review_per_booking unique (bookingId, renterId)
   );
 
 create table
@@ -258,12 +258,12 @@ create procedure sp_add_booking (
   in in_listingId int,
   in in_startDate date,
   in in_endDate date,
-  in in_renter_id int
+  in in_renterId int
 )
 sp:
   BEGIN
 
-  declare existing_period_id int;
+  declare existing_periodId int;
 
   declare existing_price float;
 
@@ -299,7 +299,7 @@ sp:
     price,
     startDate,
     endDate,
-    host_id into existing_period_id,
+    host_id into existing_periodId,
     existing_price,
     existing_startDate,
     existing_endDate,
@@ -316,7 +316,7 @@ sp:
   then
   delete from Period
   where
-    id = existing_period_id;
+    id = existing_periodId;
 
   elseif in_startDate = existing_startDate
   and in_endDate < existing_endDate then
@@ -324,7 +324,7 @@ sp:
   set
     startDate = DATE_ADD(in_endDate, interval 1 day)
   where
-    id = existing_period_id;
+    id = existing_periodId;
 
   elseif in_startDate > existing_startDate
   and in_endDate = existing_endDate then
@@ -332,14 +332,14 @@ sp:
   set
     endDate = DATE_SUB(in_startDate, interval 1 day)
   where
-    id = existing_period_id;
+    id = existing_periodId;
 
   else
   update Period
   set
     startDate = DATE_ADD(in_endDate, interval 1 day)
   where
-    id = existing_period_id;
+    id = existing_periodId;
 
   insert into
     Period (listingId, startDate, endDate, price) value (
@@ -357,14 +357,14 @@ sp:
       listingId,
       startDate,
       endDate,
-      renter_id,
+      renterId,
       price
     ) value (
       'Booked',
       in_listingId,
       in_startDate,
       in_endDate,
-      in_renter_id,
+      in_renterId,
       existing_price
     );
 
@@ -574,7 +574,7 @@ if not exists (
     Booking
   where
     id = in_bookingId
-    and (host_id = in_reviewerId or renter_id = in_reviewerId)
+    and (host_id = in_reviewerId or renterId = in_reviewerId)
     and status != 'Cancelled'
 ) then
 select
@@ -617,7 +617,7 @@ if exists (
     and host_id = in_reviewerId
 ) then
 select
-  renter_id into existing_reviewedId
+  renterId into existing_reviewedId
 from
   Booking
 where
@@ -631,7 +631,7 @@ from
   Booking
 where
   id = in_bookingId
-  and renter_id = in_reviewerId;
+  and renterId = in_reviewerId;
 
 end if;
 
@@ -658,7 +658,7 @@ drop procedure if exists add_listing_review;
 DELIMITER //
 create procedure add_listing_review (
   in in_bookingId int,
-  in in_renter_id int,
+  in in_renterId int,
   in in_listingId int,
   in in_rating int,
   in in_comment varchar(500)
@@ -678,7 +678,7 @@ if not exists (
     Booking
   where
     id = in_bookingId
-    and (renter_id = in_renter_id)
+    and (renterId = in_renterId)
     and (listingId = in_listingId)
     and status != 'Cancelled'
 ) then
@@ -695,14 +695,14 @@ if exists (
   from
     ListingReview
   where
-    renter_id = in_renter_id
+    renterId = in_renterId
     and bookingId = in_bookingId
 ) then
 update ListingReview
 set rating = in_rating,
   comment = in_comment
 where
-  renter_id = in_renter_id
+  renterId = in_renterId
   and bookingId = in_bookingId;
 select
   (
@@ -713,8 +713,8 @@ leave sp;
 end if;
 
 insert into
-  ListingReview (renter_id, listingId, bookingId, rating, comment) value (
-    in_renter_id,
+  ListingReview (renterId, listingId, bookingId, rating, comment) value (
+    in_renterId,
     in_listingId,
     in_bookingId,
     in_rating,

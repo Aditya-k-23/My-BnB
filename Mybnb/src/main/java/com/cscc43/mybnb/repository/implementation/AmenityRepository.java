@@ -37,8 +37,8 @@ public class AmenityRepository implements AmenityRepositoryInterface {
 
   @Override
   public List<Amenity> getRecommendedAmenities() {
-    return jdbcTemplate.query("SELECT name, type FROM Amenity A INNER JOIN\n" +
-        "(SELECT amenity FROM AmenitySearch WHERE searchCount>0 ORDER BY searchCount DESC LIMIT 10) recommendations\n" +
+    return jdbcTemplate.query("SELECT A.name, A.type FROM Amenity A INNER JOIN\n" +
+        "(SELECT name FROM AmenitySearch WHERE searchCount>0 ORDER BY searchCount DESC LIMIT 10) recommendations\n" +
         "WHERE recommendations.name = A.name;",
         new BeanPropertyRowMapper<>(Amenity.class));
   }
@@ -59,7 +59,7 @@ public class AmenityRepository implements AmenityRepositoryInterface {
 
     for (int i = 0; i < amenityNames.size(); i++) {
       query += (i == 0) ? "WHERE EXISTS " : "AND EXISTS ";
-      query += "(SELECT * FROM ListingAmenity AS LA WHERE L.id = LA.listingID AND LA.amenity = '"
+      query += "(SELECT * FROM ListingAmenity AS LA WHERE L.id = LA.listingID AND LA.amenityName = '"
           + amenityNames.get(i) + "')\n";
     }
 
@@ -82,15 +82,15 @@ public class AmenityRepository implements AmenityRepositoryInterface {
       return null;
     }
 
-    String query = "SELECT L.avgPrice - AVG(mod.new_avgPrice)" +
+    String query = "SELECT L.avgPrice - AVG(sub.newAvgPrice) " +
         "AS avgPrice_of_similar_listings\n" +
-        "FROM (SELECT L.avgPrice AS avgPrice_with_new_amenity" +
+        "FROM (SELECT L.avgPrice AS newAvgPrice " +
         "FROM Listing L";
     for (int i = 0; i < listingIdsWithAllAmenities.size(); i++) {
-      query += (i == 0) ? " WHERE L.id = " : " OR L.id = ";
+      query += (i == 0) ? " WHERE L.id=" : " OR L.id=";
       query += listingIdsWithAllAmenities.get(i);
     }
-    query += ") mod, Listing L WHERE L.id = " + listingId + ";";
+    query += ") sub, Listing L WHERE L.id=" + listingId + ";";
 
     System.out.println(query);
 

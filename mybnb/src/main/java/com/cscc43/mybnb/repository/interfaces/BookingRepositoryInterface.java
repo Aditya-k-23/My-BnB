@@ -11,9 +11,9 @@ import com.cscc43.mybnb.models.Booking;
 public interface BookingRepositoryInterface {
   public List<Booking> getAllBookings();
 
-  public Booking getBookings(int id);
+  public Booking getBooking(int id);
 
-  public String addBooking(int renter_id, int listingId, LocalDate startDate, LocalDate endDate);
+  public String addBooking(int renterId, int listingId, LocalDate startDate, LocalDate endDate);
 
   public void deleteBooking(int id);
 

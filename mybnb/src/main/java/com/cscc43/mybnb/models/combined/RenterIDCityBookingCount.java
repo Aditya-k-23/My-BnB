@@ -2,7 +2,7 @@ package com.cscc43.mybnb.models.combined;
 
 public class RenterIDCityBookingCount {
   private String city;
-  private int renter_id;
+  private int renterId;
   private int booking_count;
 
   public RenterIDCityBookingCount() {
@@ -17,11 +17,11 @@ public class RenterIDCityBookingCount {
   }
 
   public int getRenterId() {
-    return this.renter_id;
+    return this.renterId;
   }
 
-  public void setRenterId(int renter_id) {
-    this.renter_id = renter_id;
+  public void setRenterId(int renterId) {
+    this.renterId = renterId;
   }
 
   public int getBookingCount() {

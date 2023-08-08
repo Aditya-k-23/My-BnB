@@ -359,10 +359,11 @@ values
   (4, 'Hair dryer'),
   (4, 'Cleaning products'),
   (4, 'Coffee maker'),
-  (5, 'Dining table'),
   (5, 'Hair dryer'),
   (5, 'Cleaning products'),
+  (5, 'Dining table'),
   (5, 'Coffee maker'),
+  (5, 'Lockbox'),
   (6, 'Dining table'),
   (6, 'Hair dryer'),
   (6, 'Cleaning products'),
@@ -397,7 +398,7 @@ insert into
     startDate,
     endDate,
     listingId,
-    renter_id,
+    renterId,
     price
   )
 values
@@ -548,7 +549,7 @@ insert into
     rating,
     comment,
     bookingId,
-    renter_id,
+    renterId,
     listingId
   )
 values
@@ -561,6 +562,28 @@ values
     2,
     1
   );
+
+insert into
+  AmenitySearch (name, searchCount)
+values
+  ("Bathtub", 10),
+  ("TV", 20),
+  ("Dishwasher", 30),
+  ("Gym", 20),
+  ("Kitchen", 10),
+  ("Washer", 40),
+  ("Dryer", 50),
+  ("Hair dryer", 10),
+  ("Cleaning products", 10),
+  ("Coffee maker", 10),
+  ("Fire pit", 90),
+  ("Game console", 10),
+  ("Piano", 10),
+  ("Table corner guards", 10),
+  ("Hot water", 10),
+  ("Kayak", 10),
+  ("BBQ grill", 10),
+  ("Dining table", 80);
 
 call sp_add_period (1, '2025-07-05', '2025-07-20', 150.27);
 

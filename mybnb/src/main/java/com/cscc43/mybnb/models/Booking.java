@@ -9,7 +9,7 @@ public class Booking {
     startDate("startDate"),
     endDate("endDate"),
     listingId("listingId"),
-    RENTER_ID("renter_id"),
+    renterId("renterId"),
     PRICE("price");
 
     private final String value;
@@ -29,7 +29,7 @@ public class Booking {
   private LocalDate startDate;
   private LocalDate endDate;
   private int listingId;
-  private int renter_id;
+  private int renterId;
   private double price;
 
   public int getId() {
@@ -73,11 +73,11 @@ public class Booking {
   }
 
   public int getRenterId() {
-    return this.renter_id;
+    return this.renterId;
   }
 
-  public void setRenterId(int renter_id) {
-    this.renter_id = renter_id;
+  public void setRenterId(int renterId) {
+    this.renterId = renterId;
   }
 
   public double getPrice() {
@@ -96,7 +96,7 @@ public class Booking {
         ", startDate='" + this.startDate + '\'' +
         ", endDate='" + this.endDate + '\'' +
         ", listingId='" + this.listingId + '\'' +
-        ", renter_id='" + this.renter_id + '\'' +
+        ", renterId='" + this.renterId + '\'' +
         ", price='" + this.price + '\'' +
         '}';
   }

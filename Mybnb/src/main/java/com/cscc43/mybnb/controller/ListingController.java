@@ -1,5 +1,6 @@
 package com.cscc43.mybnb.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cscc43.mybnb.models.Amenity;
 import com.cscc43.mybnb.models.Listing;
 import com.cscc43.mybnb.models.ListingAmenity;
+import com.cscc43.mybnb.models.combined.ListingAddress;
 import com.cscc43.mybnb.models.combined.ListingDistance;
 import com.cscc43.mybnb.repository.implementation.ListingRepository;
 import com.cscc43.mybnb.services.ListingSearchQueryBuilder;
@@ -20,7 +22,6 @@ import com.cscc43.mybnb.repository.implementation.ListingAmenityRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/listing")
@@ -98,4 +99,46 @@ public class ListingController {
     return listingRepository.getListingsInDistance(latitude, longitude, radius, orderBy);
   }
 
+  @GetMapping("/getAdjacentPostalCodes")
+  public List<ListingAddress> getListingsWithAdjacentPostalCodes(
+      @RequestParam("postalCode") String postalCode) {
+    return listingRepository.getListingsByPostalCode(postalCode);
+  }
+
+  @GetMapping("/getByAddressLine")
+  public List<ListingAddress> getListingsByAddressLine(
+      @RequestParam("addressLine") String addressLine) {
+    return listingRepository.getLisitingByAddressLine(addressLine);
+  }
+
+  @GetMapping("/getInBudget")
+  public List<Listing> getListingsInBudget(
+      @RequestParam("minPrice") double minPrice,
+      @RequestParam("maxPrice") double maxPrice) {
+    return listingRepository.getListingInBudget(minPrice, maxPrice);
+  }
+
+  @GetMapping("/getByFullSearch")
+  public List<Listing> getAllListingsByFullSearch(@RequestParam(value = "latitude", required = false) Double latitude,
+      @RequestParam(value = "longitude", required = false) Double longitude,
+      @RequestParam(value = "radius", required = false, defaultValue = "50") Double radius,
+      @RequestParam(value = "minPrice", required = false) Double minPrice,
+      @RequestParam(value = "maxPrice", required = false) Double maxPrice,
+      @RequestParam(value = "postalCode", required = false) String postalCode,
+      @RequestParam(value = "addressLine", required = false) String addressLine,
+      @RequestParam(value = "amenities", required = false) List<String> amenities,
+      @RequestParam(value = "orderBy", required = false) OrderBy orderBy,
+      @RequestParam(value = "startDate", required = false) LocalDate startDate,
+      @RequestParam(value = "endDate", required = false) LocalDate endDate) {
+    String fullQuery = builder.buildSQLQuery(latitude, longitude, radius, postalCode, addressLine, minPrice, maxPrice,
+        amenities, startDate, endDate, orderBy);
+
+    return listingRepository.getListingByFullSearchQuery(fullQuery);
+  }
+
+  @GetMapping("/getByAmenities")
+  public List<Listing> getAllListingsByAmenities(
+      @RequestParam(value = "amenities", required = false) List<String> amenities) {
+    return listingRepository.getAllListingsByAmenities(amenities);
+  }
 }
