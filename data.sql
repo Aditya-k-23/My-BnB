@@ -7,7 +7,7 @@
 use Mybnb;
 
 insert into
-  Address (address_line, city, country, postal_code)
+  Address (addressLine, city, country, postalCode)
 values
   ('579 Loomis St', 'Westfield', 'USA', '01085'),
   ('581 Loomis St', 'Westfield', 'USA', '01085'),
@@ -29,10 +29,10 @@ insert into
     birthdate,
     occupation,
     sin,
-    address_line,
+    addressLine,
     city,
     country,
-    postal_code
+    postalCode
   )
 values
   (
@@ -122,10 +122,10 @@ insert into
     type,
     latitude,
     longitude,
-    address_line,
+    addressLine,
     city,
     country,
-    postal_code,
+    postalCode,
     host_id
   )
 values
@@ -333,7 +333,7 @@ values
   ('Services', 'Lockbox');
 
 insert into
-  ListingAmenity (listing_id, amenity_name)
+  ListingAmenity (listingId, amenityName)
 values
   (1, 'Coffee maker'),
   (1, 'Breakfast'),
@@ -359,10 +359,11 @@ values
   (4, 'Hair dryer'),
   (4, 'Cleaning products'),
   (4, 'Coffee maker'),
-  (5, 'Dining table'),
   (5, 'Hair dryer'),
   (5, 'Cleaning products'),
+  (5, 'Dining table'),
   (5, 'Coffee maker'),
+  (5, 'Lockbox'),
   (6, 'Dining table'),
   (6, 'Hair dryer'),
   (6, 'Cleaning products'),
@@ -377,7 +378,7 @@ values
   (7, 'Hot water');
 
 insert into
-  Period (listing_id, price, start_date, end_date)
+  Period (listingId, price, startDate, endDate)
 values
   (1, 149.99, '2023-09-03', '2023-09-05'),
   (1, 199.99, '2023-11-03', '2023-11-05'),
@@ -391,13 +392,13 @@ values
   (7, 259.00, '2023-11-10', '2024-11-29');
 
 insert into
-  Bookings (
+  Booking (
     id,
     status,
-    start_date,
-    end_date,
-    listing_id,
-    renter_id,
+    startDate,
+    endDate,
+    listingId,
+    renterId,
     price
   )
 values
@@ -459,11 +460,11 @@ values
 insert into
   PaymentInfo (
     id,
-    name_on_card,
-    card_number,
-    postal_code,
-    expiry_date,
-    user_id
+    nameOnCard,
+    cardNumber,
+    postalCode,
+    expiryDate,
+    userId
   )
 values
   (
@@ -504,9 +505,9 @@ insert into
     id,
     rating,
     comment,
-    booking_id,
-    reviewer_id,
-    reviewed_id
+    bookingId,
+    reviewerId,
+    reviewedId
   )
 values
   (
@@ -547,9 +548,9 @@ insert into
     id,
     rating,
     comment,
-    booking_id,
-    renter_id,
-    listing_id
+    bookingId,
+    renterId,
+    listingId
   )
 values
   (15001, 4.8, 'Beautiful location.', 1002, 3, 1),
@@ -561,3 +562,33 @@ values
     2,
     1
   );
+
+insert into
+  AmenitySearch (name, searchCount)
+values
+  ("Bathtub", 10),
+  ("TV", 20),
+  ("Dishwasher", 30),
+  ("Gym", 20),
+  ("Kitchen", 10),
+  ("Washer", 40),
+  ("Dryer", 50),
+  ("Hair dryer", 10),
+  ("Cleaning products", 10),
+  ("Coffee maker", 10),
+  ("Fire pit", 90),
+  ("Game console", 10),
+  ("Piano", 10),
+  ("Table corner guards", 10),
+  ("Hot water", 10),
+  ("Kayak", 10),
+  ("BBQ grill", 10),
+  ("Dining table", 80);
+
+call sp_add_period (1, '2025-07-05', '2025-07-20', 150.27);
+
+call sp_add_booking (1, '2023-01-03', '2023-01-05', 3);
+
+call cancel_booking (1005);
+
+call add_listing_review (1002, 3, 1, 10, 'Great stay!');

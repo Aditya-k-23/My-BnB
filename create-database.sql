@@ -11,11 +11,11 @@ use Mybnb;
 -- Entities
 create table
   if not exists Address (
-    address_line varchar(50) not null,
+    addressLine varchar(50) not null,
     city varchar(50) not null,
     country varchar(50) not null,
-    postal_code varchar(10) not null,
-    primary key (address_line, city, country, postal_code)
+    postalCode varchar(10) not null,
+    primary key (addressLine, city, country, postalCode)
   );
 
 create table
@@ -23,13 +23,13 @@ create table
     id int auto_increment primary key,
     sin varchar(12) not null,
     name varchar(100) not null,
-    address_line varchar(50) not null,
+    addressLine varchar(50) not null,
     city varchar(50) not null,
     country varchar(50) not null,
-    postal_code varchar(10) not null,
+    postalCode varchar(10) not null,
     occupation varchar(50) not null,
     birthdate date not null,
-    foreign key (address_line, city, country, postal_code) references Address (address_line, city, country, postal_code) on delete cascade
+    foreign key (addressLine, city, country, postalCode) references Address (addressLine, city, country, postalCode) on delete cascade
   );
 
 create table
@@ -50,25 +50,25 @@ create table
     type varchar(50) charset utf8 default "house" not null,
     latitude decimal(8, 6) not null,
     longitude decimal(9, 6) not null,
-    address_line varchar(50) not null,
+    addressLine varchar(50) not null,
     city varchar(50) not null,
     country varchar(50) not null,
-    postal_code varchar(10) not null,
-    avgPricePerNight float default null,
+    postalCode varchar(10) not null,
+    avgPrice float default null,
     host_id int not null,
     constraint fk_listing_host foreign key (host_id) references Host (id) on delete cascade,
-    constraint fk_listing_address foreign key (address_line, city, country, postal_code) references Address (address_line, city, country, postal_code) on delete cascade
+    constraint fk_listing_address foreign key (addressLine, city, country, postalCode) references Address (addressLine, city, country, postalCode) on delete cascade
   );
 
 create table
   if not exists Period (
     id int auto_increment primary key,
-    start_date date not null,
-    end_date date not null,
+    startDate date not null,
+    endDate date not null,
     price float not null,
-    listing_id int not null,
-    constraint fk_period_listing foreign key (listing_id) references Listing (id) on delete cascade,
-    constraint check (start_date <= end_date)
+    listingId int not null,
+    constraint fk_period_listing foreign key (listingId) references Listing (id) on delete cascade,
+    constraint check (startDate <= endDate)
   );
 
 create table
@@ -79,36 +79,36 @@ create table
 
 create table
   if not exists ListingAmenity (
-    listing_id int not null,
-    amenity_name varchar(50) charset utf8 not null,
-    constraint pk_listing_amenity primary key (listing_id, amenity_name),
-    constraint fk_listing_amenity_listing foreign key (listing_id) references Listing (id) on delete cascade,
-    constraint fk_listing_amenity_amenity foreign key (amenity_name) references Amenity (name) on delete cascade
+    listingId int not null,
+    amenityName varchar(50) charset utf8 not null,
+    constraint pk_listing_amenity primary key (listingId, amenityName),
+    constraint fk_listing_amenity_listing foreign key (listingId) references Listing (id) on delete cascade,
+    constraint fk_listing_amenity_amenity foreign key (amenityName) references Amenity (name) on delete cascade
   );
 
 create table
-  if not exists Bookings (
+  if not exists Booking (
     id int auto_increment primary key,
     status varchar(50) charset utf8 default "pending" not null,
-    start_date date not null,
-    end_date date not null,
-    listing_id int not null,
-    renter_id int not null,
+    startDate date not null,
+    endDate date not null,
+    listingId int not null,
+    renterId int not null,
     price float not null,
-    constraint fk_bookings_listing foreign key (listing_id) references Listing (id) on delete cascade,
-    constraint fk_bookings_renter foreign key (renter_id) references Renter (id) on delete cascade,
-    constraint check (start_date <= end_date)
+    constraint fk_booking_listing foreign key (listingId) references Listing (id) on delete cascade,
+    constraint fk_booking_renter foreign key (renterId) references Renter (id) on delete cascade,
+    constraint check (startDate <= endDate)
   );
 
 create table
   if not exists PaymentInfo (
     id int auto_increment primary key,
-    name_on_card varchar(100) charset utf8 not null,
-    card_number varchar(16) not null,
-    postal_code varchar(10) not null,
-    expiry_date date not null,
-    user_id int not null,
-    constraint fk_payment_info_user foreign key (user_id) references User (id) on delete cascade
+    nameOnCard varchar(100) charset utf8 not null,
+    cardNumber varchar(16) not null,
+    postalCode varchar(10) not null,
+    expiryDate date not null,
+    userId int not null,
+    constraint fk_payment_info_user foreign key (userId) references User (id) on delete cascade
   );
 
 create table
@@ -116,13 +116,13 @@ create table
     id int auto_increment primary key,
     rating int not null,
     comment varchar(500) charset utf8 not null,
-    booking_id int not null,
-    reviewer_id int not null,
-    reviewed_id int not null,
-    constraint fk_review_reviewer foreign key (reviewer_id) references User (id) on delete cascade,
-    constraint fk_review_reviewed foreign key (reviewed_id) references User (id) on delete cascade,
-    constraint fk_review_booking_user foreign key (booking_id) references Bookings (id) on delete cascade,
-    constraint single_review_per_booking unique (booking_id, reviewer_id)
+    bookingId int not null,
+    reviewerId int not null,
+    reviewedId int not null,
+    constraint fk_review_reviewer foreign key (reviewerId) references User (id) on delete cascade,
+    constraint fk_review_reviewed foreign key (reviewedId) references User (id) on delete cascade,
+    constraint fk_review_booking_user foreign key (bookingId) references Booking (id) on delete cascade,
+    constraint single_review_per_booking unique (bookingId, reviewerId)
   );
 
 create table
@@ -130,67 +130,74 @@ create table
     id int auto_increment primary key,
     rating int not null,
     comment varchar(500) charset utf8 not null,
-    booking_id int not null,
-    renter_id int not null,
-    listing_id int not null,
-    constraint fk_review_listing foreign key (listing_id) references Listing (id) on delete cascade,
-    constraint fk_review_renter foreign key (renter_id) references Renter (id) on delete cascade,
-    constraint fk_review_booking_listing foreign key (booking_id) references Bookings (id) on delete cascade,
-    constraint single_review_per_booking unique (booking_id, renter_id)
+    bookingId int not null,
+    renterId int not null,
+    listingId int not null,
+    constraint fk_review_listing foreign key (listingId) references Listing (id) on delete cascade,
+    constraint fk_review_renter foreign key (renterId) references Renter (id) on delete cascade,
+    constraint fk_review_booking_listing foreign key (bookingId) references Booking (id) on delete cascade,
+    constraint single_review_per_booking unique (bookingId, renterId)
+  );
+
+create table
+  if not exists AmenitySearch (
+    name varchar(50) charset utf8 not null primary key,
+    searchCount int not null,
+    constraint fk_amenity_search_amenity foreign key (name) references Amenity (name) on delete cascade
   );
 
 -- Operations
 create trigger add_period after insert on Period for each row
 update Listing
 set
-  avgPricePerNight = (
+  avgPrice = (
     select
       AVG(price)
     from
       Period
     where
-      listing_id = new.listing_id
+      listingId = new.listingId
   )
 where
-  id = new.listing_id;
+  id = new.listingId;
 
 create trigger delete_period after delete on Period for each row
 update Listing
 set
-  avgPricePerNight = (
+  avgPrice = (
     select
       AVG(price)
     from
       Period
     where
-      listing_id = old.listing_id
+      listingId = old.listingId
   )
 where
-  id = old.listing_id;
+  id = old.listingId;
 
 create trigger update_period after
 update on Period for each row
 update Listing
 set
-  avgPricePerNight = (
+  avgPrice = (
     select
       AVG(price)
     from
       Period
     where
-      listing_id = new.listing_id
+      listingId = new.listingId
   )
 where
-  id = new.listing_id;
+  id = new.listingId;
 
 -- Procedures
-drop procedure if exists add_period;
+drop procedure if exists sp_add_period;
 
 DELIMITER //
-create procedure add_period (
-  in in_listing_id int,
-  in in_start_date date,
-  in in_end_date date,
+create procedure sp_add_period (
+  in in_listingId int,
+  in in_startDate date,
+  in in_endDate date,
   in in_price float
 )
 sp:
@@ -202,9 +209,9 @@ sp:
     from
       Period
     where
-      listing_id = in_listing_id
-      and start_date <= in_end_date
-      and end_date >= in_start_date
+      listingId = in_listingId
+      and startDate <= in_endDate
+      and endDate >= in_startDate
   ) then
   select
     'Period overlapping';
@@ -215,11 +222,11 @@ sp:
     select
       *
     from
-      Bookings
+      Booking
     where
-      listing_id = in_listing_id
-      and start_date <= in_end_date
-      and end_date >= in_start_date
+      listingId = in_listingId
+      and startDate <= in_endDate
+      and endDate >= in_startDate
       and status != 'Cancelled'
   ) then
   select
@@ -230,10 +237,10 @@ sp:
   end if;
 
   insert into
-    Period (listing_id, start_date, end_date, price) value (
-      in_listing_id,
-      in_start_date,
-      in_end_date,
+    Period (listingId, startDate, endDate, price) value (
+      in_listingId,
+      in_startDate,
+      in_endDate,
       in_price
     );
 
@@ -245,24 +252,24 @@ sp:
 end //
 DELIMITER ;
 
-drop procedure if exists add_booking;
-
+drop procedure if exists sp_add_booking;
 DELIMITER //
-create procedure add_booking (
-  in in_listing_id int,
-  in in_start_date date,
-  in in_end_date date,
-  in in_renter_id int,
-  in in_price float
+create procedure sp_add_booking (
+  in in_listingId int,
+  in in_startDate date,
+  in in_endDate date,
+  in in_renterId int
 )
 sp:
-  BEGIN declare existing_period_id int;
+  BEGIN
+
+  declare existing_periodId int;
 
   declare existing_price float;
 
-  declare existing_start_date date;
+  declare existing_startDate date;
 
-  declare existing_end_date date;
+  declare existing_endDate date;
 
   declare existing_host_id int;
 
@@ -274,13 +281,13 @@ sp:
     from
       Period
     where
-      listing_id = in_listing_id
-      and start_date <= in_end_date
-      and end_date >= in_start_date
+      listingId = in_listingId
+      and startDate <= in_endDate
+      and endDate >= in_startDate
   ) then
   select
     (
-      concat ('No Availabilities for Listing: ', in_listing_id)
+      concat ('No Availabilities for Listing: ', in_listingId)
     );
 
   leave sp;
@@ -290,74 +297,74 @@ sp:
   select
     Period.id,
     price,
-    start_date,
-    end_date,
-    host_id into existing_period_id,
+    startDate,
+    endDate,
+    host_id into existing_periodId,
     existing_price,
-    existing_start_date,
-    existing_end_date,
+    existing_startDate,
+    existing_endDate,
     existing_host_id
   from
     Period
-    inner join Listing on Period.listing_id = Listing.id
+    inner join Listing on Period.listingId = Listing.id
   where
-    listing_id = in_listing_id
-    and start_date <= in_start_date
-    and in_end_date <= end_date;
+    listingId = in_listingId
+    and startDate <= in_startDate
+    and in_endDate <= endDate;
 
-  if in_start_date = existing_start_date and in_end_date = existing_end_date
+  if in_startDate = existing_startDate and in_endDate = existing_endDate
   then
   delete from Period
   where
-    id = existing_period_id;
+    id = existing_periodId;
 
-  elseif in_start_date = existing_start_date
-  and in_end_date < existing_end_date then
+  elseif in_startDate = existing_startDate
+  and in_endDate < existing_endDate then
   update Period
   set
-    start_date = DATE_ADD(in_end_date, interval 1 day)
+    startDate = DATE_ADD(in_endDate, interval 1 day)
   where
-    id = existing_period_id;
+    id = existing_periodId;
 
-  elseif in_start_date > existing_start_date
-  and in_end_date = existing_end_date then
+  elseif in_startDate > existing_startDate
+  and in_endDate = existing_endDate then
   update Period
   set
-    end_date = DATE_SUB(in_start_date, interval 1 day)
+    endDate = DATE_SUB(in_startDate, interval 1 day)
   where
-    id = existing_period_id;
+    id = existing_periodId;
 
   else
   update Period
   set
-    start_date = DATE_ADD(in_end_date, interval 1 day)
+    startDate = DATE_ADD(in_endDate, interval 1 day)
   where
-    id = existing_period_id;
+    id = existing_periodId;
 
   insert into
-    Period (listing_id, start_date, end_date, price) value (
-      in_listing_id,
-      existing_start_date,
-      DATE_SUB(in_start_date, interval 1 day),
+    Period (listingId, startDate, endDate, price) value (
+      in_listingId,
+      existing_startDate,
+      DATE_SUB(in_startDate, interval 1 day),
       existing_price
     );
 
   end if;
 
   insert into
-    Bookings (
+    Booking (
       status,
-      listing_id,
-      start_date,
-      end_date,
-      renter_id,
+      listingId,
+      startDate,
+      endDate,
+      renterId,
       price
     ) value (
       'Booked',
-      in_listing_id,
-      in_start_date,
-      in_end_date,
-      in_renter_id,
+      in_listingId,
+      in_startDate,
+      in_endDate,
+      in_renterId,
       existing_price
     );
 
@@ -365,7 +372,7 @@ sp:
 
   select
     (
-      concat ('Booking added for Listing: ', in_listing_id)
+      concat ('Booking added for Listing: ', in_listingId)
     );
 
 end //
@@ -374,25 +381,25 @@ DELIMITER ;
 drop procedure if exists cancel_booking;
 
 DELIMITER //
-create procedure cancel_booking (in in_booking_id int)
+create procedure cancel_booking (in in_bookingId int)
 sp:
   BEGIN
 
-  declare existing_listing_id int;
+  declare existing_listingId int;
 
   declare existing_price float;
 
-  declare existing_start_date date;
+  declare existing_startDate date;
 
-  declare existing_end_date date;
+  declare existing_endDate date;
 
-  declare period_preceeding_start_date date;
+  declare period_preceeding_startDate date;
 
   declare period_preceeding_id int;
 
   declare period_succeeding_id int;
 
-  declare period_succeeding_end_date date;
+  declare period_succeeding_endDate date;
 
   start transaction;
 
@@ -400,27 +407,27 @@ sp:
     select
       *
     from
-      Bookings
+      Booking
     where
-      id = in_booking_id
+      id = in_bookingId
   ) then
   select
     (
-      concat ('Booking does not exist: ', in_booking_id)
+      concat ('Booking does not exist: ', in_bookingId)
     );
 
   select
-    listing_id,
-    start_date,
-    end_date,
-    price into existing_listing_id,
-    existing_start_date,
-    existing_end_date,
+    listingId,
+    startDate,
+    endDate,
+    price into existing_listingId,
+    existing_startDate,
+    existing_endDate,
     existing_price
   from
-    Bookings
+    Booking
   where
-    id = in_booking_id;
+    id = in_bookingId;
 
   if exists (
     select
@@ -428,37 +435,37 @@ sp:
     from
       Period
     where
-      listing_id = existing_listing_id
-      and end_date = DATE_SUB(existing_start_date, interval 1 day)
+      listingId = existing_listingId
+      and endDate = DATE_SUB(existing_startDate, interval 1 day)
       and exists (
         select
           *
         from
           Period
         where
-          listing_id = existing_listing_id
-          and start_date = DATE_ADD(existing_end_date, interval 1 day)
+          listingId = existing_listingId
+          and startDate = DATE_ADD(existing_endDate, interval 1 day)
       )
   ) then
   select
     id,
-    start_date into period_preceeding_id,
-    period_preceeding_start_date
+    startDate into period_preceeding_id,
+    period_preceeding_startDate
   from
     Period
   where
-    listing_id = existing_listing_id
-    and end_date = DATE_SUB(existing_start_date, interval 1 day);
+    listingId = existing_listingId
+    and endDate = DATE_SUB(existing_startDate, interval 1 day);
 
   select
     id,
-    end_date into period_succeeding_id,
-    period_succeeding_end_date
+    endDate into period_succeeding_id,
+    period_succeeding_endDate
   from
     Period
   where
-    listing_id = existing_listing_id
-    and start_date = DATE_ADD(existing_end_date, interval 1 day);
+    listingId = existing_listingId
+    and startDate = DATE_ADD(existing_endDate, interval 1 day);
 
   delete from Period
   where
@@ -466,7 +473,7 @@ sp:
 
   update Period
   set
-    end_date = period_succeeding_end_date
+    endDate = period_succeeding_endDate
   where
     id = period_preceeding_id;
 
@@ -476,20 +483,20 @@ sp:
     from
       Period
     where
-      listing_id = existing_listing_id
-      and end_date = DATE_SUB(existing_start_date, interval 1 day)
+      listingId = existing_listingId
+      and endDate = DATE_SUB(existing_startDate, interval 1 day)
   ) then
   select
     id into period_preceeding_id
   from
     Period
   where
-    listing_id = existing_listing_id
-    and end_date = DATE_SUB(existing_start_date, interval 1 day);
+    listingId = existing_listingId
+    and endDate = DATE_SUB(existing_startDate, interval 1 day);
 
   update Period
   set
-    end_date = existing_end_date
+    endDate = existing_endDate
   where
     id = period_preceeding_id;
 
@@ -499,39 +506,39 @@ sp:
     from
       Period
     where
-      listing_id = existing_listing_id
-      and start_date = DATE_ADD(existing_end_date, interval 1 day)
+      listingId = existing_listingId
+      and startDate = DATE_ADD(existing_endDate, interval 1 day)
   ) then
   select
     id into period_succeeding_id
   from
     Period
   where
-    listing_id = existing_listing_id
-    and start_date = DATE_ADD(existing_end_date, interval 1 day);
+    listingId = existing_listingId
+    and startDate = DATE_ADD(existing_endDate, interval 1 day);
 
   update Period
   set
-    start_date = existing_start_date
+    startDate = existing_startDate
   where
     id = period_succeeding_id;
 
   else
   insert into
-    Period (listing_id, start_date, end_date, price) value (
-      existing_listing_id,
-      existing_start_date,
-      existing_end_date,
+    Period (listingId, startDate, endDate, price) value (
+      existing_listingId,
+      existing_startDate,
+      existing_endDate,
       existing_price
     );
 
   end if;
 
-  update Bookings
+  update Booking
   set
     status = 'Cancelled'
   where
-    id = in_booking_id;
+    id = in_bookingId;
 
   commit;
 
@@ -543,11 +550,11 @@ sp:
 end //
 DELIMITER ;
 
-drop procedure if exists add_UserReview;
+drop procedure if exists add_user_review;
 DELIMITER //
-create procedure add_UserReview (
-  in in_booking_id int,
-  in in_reviewer_id int,
+create procedure add_user_review (
+  in in_bookingId int,
+  in in_reviewerId int,
   in in_reviewee_id int,
   in in_rating int,
   in in_comment varchar(500)
@@ -556,7 +563,7 @@ sp:
 
 begin
 
-declare existing_reviewed_id int;
+declare existing_reviewedId int;
 
 start transaction;
 
@@ -564,15 +571,15 @@ if not exists (
   select
     *
   from
-    Bookings
+    Booking
   where
-    id = in_booking_id
-    and (host_id = in_reviewer_id or renter_id = in_reviewer_id)
+    id = in_bookingId
+    and (host_id = in_reviewerId or renterId = in_reviewerId)
     and status != 'Cancelled'
 ) then
 select
   (
-    concat ('Booking does not exist: ', in_booking_id)
+    concat ('Booking does not exist: ', in_bookingId)
   );
 leave sp;
 end if;
@@ -583,18 +590,18 @@ if exists (
   from
     UserReview
   where
-    reviewer_id = in_reviewer_id
-    and booking_id = in_booking_id
+    reviewerId = in_reviewerId
+    and bookingId = in_bookingId
 ) then
 update UserReview
 set rating = in_rating,
   comment = in_comment
 where
-  reviewer_id = in_reviewer_id
-  and booking_id = in_booking_id;
+  reviewerId = in_reviewerId
+  and bookingId = in_bookingId;
 select
   (
-    concat ('Review updated for Booking: ', in_booking_id)
+    concat ('Review updated for Booking: ', in_bookingId)
   );
 commit;
 leave sp;
@@ -604,35 +611,35 @@ if exists (
   select
     *
   from
-    Bookings
+    Booking
   where
-    id = in_booking_id
-    and host_id = in_reviewer_id
+    id = in_bookingId
+    and host_id = in_reviewerId
 ) then
 select
-  renter_id into existing_reviewed_id
+  renterId into existing_reviewedId
 from
-  Bookings
+  Booking
 where
-  id = in_booking_id
-  and host_id = in_reviewer_id;
+  id = in_bookingId
+  and host_id = in_reviewerId;
 
 else
 select
-  host_id into existing_reviewed_id
+  host_id into existing_reviewedId
 from
-  Bookings
+  Booking
 where
-  id = in_booking_id
-  and renter_id = in_reviewer_id;
+  id = in_bookingId
+  and renterId = in_reviewerId;
 
 end if;
 
 insert into
-  UserReview (reviewer_id, reviewed_id, booking_id, rating, comment) value (
-    in_reviewer_id,
-    existing_reviewed_id,
-    in_booking_id,
+  UserReview (reviewerId, reviewedId, bookingId, rating, comment) value (
+    in_reviewerId,
+    existing_reviewedId,
+    in_bookingId,
     in_rating,
     in_comment
   );
@@ -641,18 +648,18 @@ commit;
 
 select
   (
-    concat ('Review added for Booking: ', in_booking_id)
+    concat ('Review added for Booking: ', in_bookingId)
   );
 
 end //
 DELIMITER ;
 
-drop procedure if exists ListingReview;
+drop procedure if exists add_listing_review;
 DELIMITER //
-create procedure add_ListingReview (
-  in in_booking_id int,
-  in in_renter_id int,
-  in in_listing_id int,
+create procedure add_listing_review (
+  in in_bookingId int,
+  in in_renterId int,
+  in in_listingId int,
   in in_rating int,
   in in_comment varchar(500)
 )
@@ -660,7 +667,7 @@ sp:
 
 begin
 
-declare existing_reviewed_id int;
+declare existing_reviewedId int;
 
 start transaction;
 
@@ -668,15 +675,16 @@ if not exists (
   select
     *
   from
-    Bookings
+    Booking
   where
-    id = in_booking_id
-    and (renter_id = in_renter_id)
+    id = in_bookingId
+    and (renterId = in_renterId)
+    and (listingId = in_listingId)
     and status != 'Cancelled'
 ) then
 select
   (
-    concat ('Booking does not exist: ', in_booking_id)
+    concat ('Invalid request for reviewing booking: ', in_bookingId)
   );
 leave sp;
 end if;
@@ -687,28 +695,28 @@ if exists (
   from
     ListingReview
   where
-    renter_id = in_renter_id
-    and booking_id = in_booking_id
+    renterId = in_renterId
+    and bookingId = in_bookingId
 ) then
 update ListingReview
 set rating = in_rating,
   comment = in_comment
 where
-  renter_id = in_renter_id
-  and booking_id = in_booking_id;
+  renterId = in_renterId
+  and bookingId = in_bookingId;
 select
   (
-    concat ('Review updated for Booking: ', in_booking_id)
+    concat ('Review updated for Booking: ', in_bookingId)
   );
 commit;
 leave sp;
 end if;
 
 insert into
-  ListingReview (renter_id, listing_id, booking_id, rating, comment) value (
-    in_renter_id,
-    in_listing_id,
-    in_booking_id,
+  ListingReview (renterId, listingId, bookingId, rating, comment) value (
+    in_renterId,
+    in_listingId,
+    in_bookingId,
     in_rating,
     in_comment
   );
@@ -717,7 +725,7 @@ commit;
 
 select
   (
-    concat ('Review added for Booking: ', in_booking_id)
+    concat ('Review added for Booking: ', in_bookingId)
   );
 
 end //
