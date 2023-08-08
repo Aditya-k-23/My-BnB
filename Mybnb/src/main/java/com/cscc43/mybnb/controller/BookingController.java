@@ -34,14 +34,15 @@ public class BookingController {
 
   @PostMapping("/add")
   public void addBooking(@RequestBody AddBookingBody requestBody) {
-    bookingRepository.addBooking(requestBody.getRenterId(),
+    String result = bookingRepository.addBooking(requestBody.getRenterId(),
         requestBody.getListingId(),
         requestBody.getStartDate(),
         requestBody.getEndDate());
+    System.out.println(result);
   }
 
   @PostMapping("/cancel")
-  public void cancelBooking(@RequestParam CancelBookingBody requestBody) {
+  public void cancelBooking(@RequestBody CancelBookingBody requestBody) {
     Booking curBooking = bookingRepository.getBooking(requestBody.getBookingId());
     if (curBooking != null) {
       bookingRepository.deleteBooking(requestBody.getBookingId());

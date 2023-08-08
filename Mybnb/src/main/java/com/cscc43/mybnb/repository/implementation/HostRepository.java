@@ -39,7 +39,8 @@ public class HostRepository implements HostRepositoryInterface {
   @Override
   public Host getHost(int id) {
     try {
-      return new Host(userRepository.getUser(id).getId());
+      return jdbcTemplate.queryForObject("SELECT * FROM Host INNER JOIN User ON Host.id = User.id WHERE Host.id=?;",
+          new BeanPropertyRowMapper<>(Host.class), id);
     } catch (EmptyResultDataAccessException e) {
       return null;
     }

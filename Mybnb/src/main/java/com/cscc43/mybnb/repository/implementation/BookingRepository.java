@@ -38,7 +38,7 @@ public class BookingRepository implements BookingRepositoryInterface {
       LocalDate endDate) {
     try {
       jdbcTemplate.queryForObject(
-          "CALL add_booking(?, ?, ?, ?);", String.class,
+          "CALL sp_add_booking(?, ?, ?, ?);", String.class,
           listingId,
           startDate,
           endDate,

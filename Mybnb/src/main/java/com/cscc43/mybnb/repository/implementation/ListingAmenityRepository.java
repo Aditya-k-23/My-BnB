@@ -31,7 +31,7 @@ public class ListingAmenityRepository implements ListingAmenityRepositoryInterfa
 
   @Override
   public List<Amenity> getAmenitiesOfListing(int listingId) {
-    String query = "SELECT * FROM ListingAmenity INNER JOIN Amenity ON ListingAmenity.name = Amenity.name WHERE listingId = ?;";
+    String query = "SELECT * FROM ListingAmenity INNER JOIN Amenity ON ListingAmenity.amenityName = Amenity.name WHERE listingId = ?;";
     return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Amenity.class), listingId);
   }
 

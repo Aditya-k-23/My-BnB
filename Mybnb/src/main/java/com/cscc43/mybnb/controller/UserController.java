@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cscc43.mybnb.models.User;
+import com.cscc43.mybnb.repository.implementation.AddressRepository;
 import com.cscc43.mybnb.repository.implementation.UserRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class UserController {
   @Autowired
   UserRepository userRepository;
+
+  @Autowired
+  AddressRepository addressRepository;
 
   @GetMapping("/getAllUsers")
   public List<User> getAllUsers() {
@@ -31,8 +35,10 @@ public class UserController {
     return userRepository.getUser(id);
   }
 
-  @PostMapping(path = "/addUser", consumes = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(path = "/addUser")
   public void addUser(@RequestBody User user) {
+    addressRepository.addAddress(user.getAddressLine(), user.getCity(), user.getCountry(),
+        user.getPostalCode());
     userRepository.addUser(user);
   }
 

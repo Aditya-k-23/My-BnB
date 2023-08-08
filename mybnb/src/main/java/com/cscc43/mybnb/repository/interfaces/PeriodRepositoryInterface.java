@@ -24,6 +24,6 @@ public interface PeriodRepositoryInterface {
 
   public String addPeriod(Period period);
 
-  public void deletePeriod(int id, int listingId);
+  public void deletePeriod(int id);
 
 }

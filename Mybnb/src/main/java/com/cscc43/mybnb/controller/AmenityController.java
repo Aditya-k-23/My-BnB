@@ -19,7 +19,7 @@ public class AmenityController {
   @Autowired
   AmenityRepository amenityRepository;
 
-  @GetMapping("/getALlAmenities")
+  @GetMapping("/getAllAmenities")
   public List<Amenity> getAllAmenities() {
     return amenityRepository.getAllAmenities();
   }

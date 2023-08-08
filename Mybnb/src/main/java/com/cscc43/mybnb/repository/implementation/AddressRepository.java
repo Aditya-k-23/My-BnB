@@ -40,4 +40,10 @@ public class AddressRepository implements AddressRepositoryInterface {
         address.getCountry(), address.getPostalCode());
   }
 
+  public void addAddress(String addressLine, String city, String country, String postalCode) {
+    String query = "INSERT INTO Address (addressLine, city, country, postalCode) VALUES ('" + addressLine + "', '"
+        + city + "', '" + country + "', '" + postalCode + "');";
+    jdbcTemplate.update(query);
+  }
+
 }

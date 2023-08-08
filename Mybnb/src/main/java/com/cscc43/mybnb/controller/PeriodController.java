@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,9 +63,9 @@ public class PeriodController {
     periodRepository.addPeriod(period);
   }
 
-  @PostMapping(path = "/deletePeriod", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public void deletePeriod(@RequestBody DeletePeriodBody requestBody) {
-    periodRepository.deletePeriod(requestBody.getPeriodId(), requestBody.getListingID());
+  @PostMapping(path = "/deletePeriod")
+  public void deletePeriod(@RequestParam("id") int id) {
+    periodRepository.deletePeriod(id);
   }
 
 }

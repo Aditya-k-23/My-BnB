@@ -31,10 +31,9 @@ public class PeriodRepository implements PeriodRepositoryInterface {
   }
 
   @Override
-  public void deletePeriod(int id, int listingId) {
+  public void deletePeriod(int id) {
     try {
-      String query = "DELETE FROM Period WHERE id = " + id +
-          " AND listingId = " + listingId + ";";
+      String query = "DELETE FROM Period WHERE id = " + id;
       jdbcTemplate.update(query);
       System.out.println(query);
     } catch (EmptyResultDataAccessException e) {

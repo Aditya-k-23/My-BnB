@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cscc43.mybnb.models.Host;
+import com.cscc43.mybnb.repository.implementation.AddressRepository;
 import com.cscc43.mybnb.repository.implementation.HostRepository;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +21,9 @@ public class HostController {
 
   @Autowired
   HostRepository hostRepository;
+
+  @Autowired
+  AddressRepository addressRepository;
 
   @GetMapping("/getAllHosts")
   public List<Host> getAllHosts() {
@@ -33,6 +37,8 @@ public class HostController {
 
   @PostMapping("/addHost")
   public void addHost(@RequestBody Host host) {
+    addressRepository.addAddress(host.getAddressLine(), host.getCity(), host.getCountry(),
+        host.getPostalCode());
     hostRepository.addHost(host);
   }
 

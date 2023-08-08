@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cscc43.mybnb.models.PaymentInfo;
@@ -25,7 +26,7 @@ public class PaymentInfoController {
   }
 
   @GetMapping("/byUserId")
-  public List<PaymentInfo> getPaymentInfoByUserId(int id) {
+  public List<PaymentInfo> getPaymentInfoByUserId(@RequestParam("id") int id) {
     return paymentInfoRepository.getPaymentInfoByUserId(id);
   }
 

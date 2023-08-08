@@ -37,15 +37,15 @@ public class UserRepository implements UserRepositoryInterface {
   public void addUser(User user) {
 
     String query = "INSERT INTO User(sin, name, addressLine, city, country, " +
-        "postalCode, occupation, birthdate) VALUE (" +
-        user.getSIN() + ", " +
-        user.getName() + ", " +
-        user.getAddressLine() + ", " +
-        user.getCity() + ", " +
-        user.getCountry() + ", " +
-        user.getPostalCode() + ", " +
-        user.getOccupation() + ", " +
-        user.getBirthdate() + ");";
+        "postalCode, occupation, birthdate) VALUE ('" +
+        user.getSIN() + "', '" +
+        user.getName() + "', '" +
+        user.getAddressLine() + "', '" +
+        user.getCity() + "', '" +
+        user.getCountry() + "', '" +
+        user.getPostalCode() + "', '" +
+        user.getOccupation() + "', '" +
+        user.getBirthdate() + "');";
     jdbcTemplate.update(query);
   }
 
