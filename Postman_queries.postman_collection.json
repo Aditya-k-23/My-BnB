@@ -1,0 +1,1562 @@
+{
+	"info": {
+		"_postman_id": "688f374f-7ee7-4ad8-84f1-4807b812f900",
+		"name": "Mybnb SQL Queries",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27684848"
+	},
+	"item": [
+		{
+			"name": "HostToolKit",
+			"item": [
+				{
+					"name": "ExpectedPriceHike",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hostToolkit/getExpectedPriceHike?listingId=4&amenityName=Lockbox",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hostToolkit",
+								"getExpectedPriceHike"
+							],
+							"query": [
+								{
+									"key": "listingId",
+									"value": "4"
+								},
+								{
+									"key": "amenityName",
+									"value": "Lockbox"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RecommendedAmenities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hostToolkit/getRecommendedAmenities",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hostToolkit",
+								"getRecommendedAmenities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RecommendedPrice",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hostToolkit/getRecommendedPrice?listingId=4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hostToolkit",
+								"getRecommendedPrice"
+							],
+							"query": [
+								{
+									"key": "listingId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Amenities",
+			"item": [
+				{
+					"name": "AllAmenities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/getAllAmenities",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getAllAmenities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AmenityByName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/getAmenity?name=Wifi",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getAmenity"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Wifi"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddAmenity",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Alexa Echo Dot\",\n    \"type\":\"Entertainment\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/addAmenity",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"addAmenity"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Alexa",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "Digital Assisstant",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bookings",
+			"item": [
+				{
+					"name": "AllBookings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/booking/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"booking",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BookingById",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"renterId\":\"3\",\n    \"listingId\":\"4\",\n    \"startDate\":\"2023-11-03\",\n    \"endDate\":\"2023-11-04\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/booking/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"booking",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CancelBooking",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\":\"3\",\n    \"bookingId\":\"1009\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/booking/cancel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"booking",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Hosts",
+			"item": [
+				{
+					"name": "AllHosts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/getAllHosts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getAllHosts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/getHost?id=4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getHost"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddHost",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {  \"id\": \"6\",\n    \"name\": \"Valerie\",\n    \"sin\": \"6107864931\",\n    \"addressLine\": \"Heritage\",\n    \"city\": \"Calgary\",\n    \"country\": \"Canada\",\n    \"postalCode\": \"T2V2W2\",\n    \"occupation\": \"Architect\",\n    \"birthdate\": \"1986-01-13\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/addHost",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"addHost"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteHost",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/deleteHost?id=6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"deleteHost"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Listing",
+			"item": [
+				{
+					"name": "AllListings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/listing/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"listing",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AmenitiesForListing",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/listing/amenities?listingId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"listing",
+								"amenities"
+							],
+							"query": [
+								{
+									"key": "listingId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AllListingAmenities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/listing/getAllListingAmenities",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"listing",
+								"getAllListingAmenities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddListing",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\":\"Mansion\",\n    \"latitude\":\"42.200237\",\n    \"longitude\":\"-72.710496\",\n    \"addressLine\":\"255 Laguardia\",\n    \"city\":\"Rokee\",\n    \"country\":\"USA\",\n    \"postalCode\":\"01090\",\n    \"avgPrice\":\"499\",\n    \"hostId\":\"4\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/listing/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"listing",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteListing",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/listing/delete?id=8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"listing",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateListing",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"8\",\n    \"type\":\"Mansion\",\n    \"latitude\":\"42.200237\",\n    \"longitude\":\"-72.710496\",\n    \"addressLine\":\"255 Laguardia\",\n    \"city\":\"Rokee\",\n    \"country\":\"USA\",\n    \"postalCode\":\"01090\",\n    \"avgPrice\":\"999\",\n    \"hostId\":\"4\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/listing/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"listing",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "WithinDistance",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/listing/getWithinDistance?latitude=45.380758&longitude=-75.668002&radius=100&orderBy=PRICE_DESC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"listing",
+								"getWithinDistance"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "45.380758"
+								},
+								{
+									"key": "longitude",
+									"value": "-75.668002"
+								},
+								{
+									"key": "radius",
+									"value": "100"
+								},
+								{
+									"key": "orderBy",
+									"value": "PRICE_DESC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ByAdjacentPostalCodes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/listing/getAdjacentPostalCodes?postalCode=010854",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"listing",
+								"getAdjacentPostalCodes"
+							],
+							"query": [
+								{
+									"key": "postalCode",
+									"value": "010854"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ByAddressLine",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/listing/getByAddressLine?addressLine=255 Laguardia",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"listing",
+								"getByAddressLine"
+							],
+							"query": [
+								{
+									"key": "addressLine",
+									"value": "255 Laguardia"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "InBudget",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/listing/getInBudget?minPrice=300&maxPrice=1000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"listing",
+								"getInBudget"
+							],
+							"query": [
+								{
+									"key": "minPrice",
+									"value": "300"
+								},
+								{
+									"key": "maxPrice",
+									"value": "1000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FullSearch",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/listing/getByFullSearch?latitude=43.790751&longitude=-79.334217&postalCode=01085&minPrice=200&maxPrice=1000&orderBy=PRICE_DESC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"listing",
+								"getByFullSearch"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "43.790751"
+								},
+								{
+									"key": "longitude",
+									"value": "-79.334217"
+								},
+								{
+									"key": "postalCode",
+									"value": "01085"
+								},
+								{
+									"key": "addressLine",
+									"value": "2224 Glover",
+									"disabled": true
+								},
+								{
+									"key": "minPrice",
+									"value": "200"
+								},
+								{
+									"key": "maxPrice",
+									"value": "1000"
+								},
+								{
+									"key": "startDate",
+									"value": "2023-09-03",
+									"disabled": true
+								},
+								{
+									"key": "endDate",
+									"value": "2023-09-05",
+									"disabled": true
+								},
+								{
+									"key": "orderBy",
+									"value": "PRICE_DESC"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PaymentInfo",
+			"item": [
+				{
+					"name": "AddPaymentInfo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"2\",\n    \"nameOnCard\": \"Sudha Kishore\",\n    \"cardNumber\": \"4916500939369488\",\n    \"postalCode\":\"T5J 3N6\",\n    \"expiryDate\":\"2020-10-10\",\n    \"userId\":\"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/paymentInfo/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paymentInfo",
+								"add"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AllPaymentInfo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/paymentInfo/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paymentInfo",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PaymentInfoByUserId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/paymentInfo/byUserId?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"paymentInfo",
+								"byUserId"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Period",
+			"item": [
+				{
+					"name": "AllPeriods",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/period/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"period",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ByListingId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/period/byListingId?listingId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"period",
+								"byListingId"
+							],
+							"query": [
+								{
+									"key": "listingId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ByListingIdStartEndDate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/period/getPeriods?startDate=2023-09-03&endDate=2023-09-05&listingId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"period",
+								"getPeriods"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2023-09-03"
+								},
+								{
+									"key": "endDate",
+									"value": "2023-09-05"
+								},
+								{
+									"key": "listingId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ByListingIdEndDate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/period/getPeriods?end=2023-09-04&listingId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"period",
+								"getPeriods"
+							],
+							"query": [
+								{
+									"key": "end",
+									"value": "2023-09-04"
+								},
+								{
+									"key": "listingId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ByStartEndDate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/period/getPeriodsInRange?startDate=2023-09-03&endDate=2023-09-05",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"period",
+								"getPeriodsInRange"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2023-09-03"
+								},
+								{
+									"key": "endDate",
+									"value": "2023-09-05"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AllAvailableListings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/period/getAllAvailableListings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"period",
+								"getAllAvailableListings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddPeriod",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"startDate\":\"2027-07-07\",\n    \"endDate\":\"2027-07-09\",\n    \"listingId\":\"1\",\n    \"price\":\"8000.98\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/period/addPeriod",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"period",
+								"addPeriod"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletePeriod",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/period/deletePeriod?id=12",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"period",
+								"deletePeriod"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "12"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reports",
+			"item": [
+				{
+					"name": "countBookingsWithinRange",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reports/countBookingsWithinRange?startDate=2020-01-01&endDate=2025-01-01",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reports",
+								"countBookingsWithinRange"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2020-01-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2025-01-01"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "countListingsByCountryCityPostalCode",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reports/countListingsByCountryCityPostalCode",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reports",
+								"countListingsByCountryCityPostalCode"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "countListingsByCountryCity",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reports/countListingsByCountryCity",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reports",
+								"countListingsByCountryCity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "countListingsByCountry",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reports/countListingsByCountry",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reports",
+								"countListingsByCountry"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rankHostsByListingsPerCountry",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reports/rankHostsByNumberOfListingsCountry",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reports",
+								"rankHostsByNumberOfListingsCountry"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rankHostsByListingsPerCountryCity",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reports/rankHostsByNumberOfListingsCountryCity",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reports",
+								"rankHostsByNumberOfListingsCountryCity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rankHostsByCancellationsPerYear",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reports/rankHostsByCancellationsPerYear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reports",
+								"rankHostsByCancellationsPerYear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rankRentersByCancellationsPerYear",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reports/rankRentersByCancellationsPerYear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reports",
+								"rankRentersByCancellationsPerYear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PotentialCommercialHosts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reports/getPotentialCommercialHosts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reports",
+								"getPotentialCommercialHosts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rankRentersByBookingsInRange",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reports/rankByBookingsInRange?startDate=2019-05-01&endDate=2027-07-07",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reports",
+								"rankByBookingsInRange"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2019-05-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2027-07-07"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rankRenterByBookingsInRangeByCity",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reports/rankByBookingsInRangeByCity?startDate=2020-01-01&endDate=2027-01-01&minBookingCount=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reports",
+								"rankByBookingsInRangeByCity"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2020-01-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2027-01-01"
+								},
+								{
+									"key": "minBookingCount",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListingNounPhrases",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reports/listingNounPhrases",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reports",
+								"listingNounPhrases"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "AllUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/getAllUsers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getAllUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/getUser?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getUser"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"6\",\n    \"name\": \"Kristine\",\n    \"sin\": \"7586758900\",\n    \"addressLine\": \"Ramborne\",\n    \"city\": \"Calgary\",\n    \"country\": \"Canada\",\n    \"postalCode\": \"M1CVV2\",\n    \"occupation\": \"Carpenter\",\n    \"birthdate\": \"1955-01-13\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/addUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"addUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/deleteUser?id=7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"deleteUser"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Review",
+			"item": [
+				{
+					"name": "UserAdd",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rating\":\"7\",\n    \"comment\":\"Polite and responsive user.\",\n    \"bookingId\":\"1005\",\n    \"reviewerId\":\"5\",\n    \"reviewedId\":\"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/userReview/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"userReview",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserModify",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rating\":\"7\",\n    \"comment\":\"Polite and responsive user, served meals.\",\n    \"bookingId\":\"1005\",\n    \"reviewerId\":\"5\",\n    \"reviewedId\":\"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/userReview/modify",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"userReview",
+								"modify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserDelete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/userReview/delete?userReviewId=20005",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"userReview",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "userReviewId",
+									"value": "20005"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListingAdd",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rating\":\"7\",\n    \"comment\":\"Wonderful Experience.\",\n    \"bookingId\":\"1005\",\n    \"renterId\":\"5\",\n    \"listingId\":\"3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/listingReview/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"listingReview",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListingModify",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rating\":\"7\",\n    \"comment\":\"Wonderful Vacation Home.\",\n    \"bookingId\":\"1005\",\n    \"renterId\":\"5\",\n    \"listingId\":\"3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/listingReview/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"listingReview",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListingDelete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/listingReview/delete?listingReviewId=15003",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"listingReview",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "listingReviewId",
+									"value": "15003"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
