@@ -55,8 +55,8 @@ create table
     country varchar(50) not null,
     postalCode varchar(10) not null,
     avgPrice float default null,
-    host_id int not null,
-    constraint fk_listing_host foreign key (host_id) references Host (id) on delete cascade,
+    hostId int not null,
+    constraint fk_listing_host foreign key (hostId) references Host (id) on delete cascade,
     constraint fk_listing_address foreign key (addressLine, city, country, postalCode) references Address (addressLine, city, country, postalCode) on delete cascade
   );
 
@@ -271,7 +271,7 @@ sp:
 
   declare existing_endDate date;
 
-  declare existing_host_id int;
+  declare existing_hostId int;
 
   start transaction;
 
@@ -299,11 +299,11 @@ sp:
     price,
     startDate,
     endDate,
-    host_id into existing_periodId,
+    hostId into existing_periodId,
     existing_price,
     existing_startDate,
     existing_endDate,
-    existing_host_id
+    existing_hostId
   from
     Period
     inner join Listing on Period.listingId = Listing.id
@@ -571,10 +571,10 @@ if not exists (
   select
     *
   from
-    Booking
+    Booking inner join Listing on Booking.listingId=Listing.id
   where
-    id = in_bookingId
-    and (host_id = in_reviewerId or renterId = in_reviewerId)
+    Booking.id = in_bookingId
+    and (hostId = in_reviewerId or renterId = in_reviewerId)
     and status != 'Cancelled'
 ) then
 select
@@ -611,26 +611,26 @@ if exists (
   select
     *
   from
-    Booking
+    Booking inner join Listing on Booking.listingId=Listing.id
   where
-    id = in_bookingId
-    and host_id = in_reviewerId
+    Booking.id = in_bookingId
+    and hostId = in_reviewerId
 ) then
 select
   renterId into existing_reviewedId
 from
-  Booking
+  Booking inner join Listing on Booking.listingId=Listing.id
 where
-  id = in_bookingId
-  and host_id = in_reviewerId;
+  Booking.id = in_bookingId
+  and hostId = in_reviewerId;
 
 else
 select
-  host_id into existing_reviewedId
+  hostId into existing_reviewedId
 from
-  Booking
+  Booking inner join Listing on Booking.listingId=Listing.id
 where
-  id = in_bookingId
+  Booking.id = in_bookingId
   and renterId = in_reviewerId;
 
 end if;

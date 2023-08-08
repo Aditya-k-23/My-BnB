@@ -11,7 +11,7 @@ public class Listing {
     COUNTRY("country"),
     postalCode("postalCode"),
     avgPrice("avgPrice"),
-    HOST_ID("host_id");
+    hostId("hostId");
 
     private final String value;
 
@@ -34,7 +34,7 @@ public class Listing {
   private String country;
   private String postalCode;
   private double avgPrice;
-  private int host_id;
+  private int hostId;
 
   public Listing() {
   }
@@ -112,11 +112,11 @@ public class Listing {
   }
 
   public int getHostId() {
-    return this.host_id;
+    return this.hostId;
   }
 
-  public void setHostId(int host_id) {
-    this.host_id = host_id;
+  public void setHostId(int hostId) {
+    this.hostId = hostId;
   }
 
   @Override
@@ -131,7 +131,7 @@ public class Listing {
         ", country='" + this.country + '\'' +
         ", postalCode='" + this.postalCode + '\'' +
         ", avgPrice='" + this.avgPrice + '\'' +
-        ", host_id='" + this.host_id + '\'' +
+        ", hostId='" + this.hostId + '\'' +
         '}';
   }
 

@@ -50,13 +50,14 @@ public class UserReviewRepository implements UserReviewRepositoryInterface {
 
   @Override
   public void addUserReview(AddUserReviewBody userReview) {
-    String query = "CALL add_user_review(?, ?, ?, ?, ?);";
-    jdbcTemplate.update(query,
-        userReview.getBookingId(),
-        userReview.getReviewerId(),
-        userReview.getReviewedId(),
-        userReview.getRating(),
-        userReview.getComment());
+    String query = "CALL add_user_review('" +
+        userReview.getBookingId() + "', '" +
+        userReview.getReviewerId() + "', '" +
+        userReview.getReviewedId() + "', '" +
+        userReview.getRating() + "', '" +
+        userReview.getComment() +
+        "');";
+    jdbcTemplate.update(query);
   }
 
   @Override

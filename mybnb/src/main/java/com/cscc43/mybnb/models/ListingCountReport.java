@@ -4,7 +4,7 @@ public class ListingCountReport {
   private int host_city_count;
   private String country;
   private String city;
-  private int host_id;
+  private int hostId;
   private int city_listing_count;
 
   public int getHostCityCount() {
@@ -32,11 +32,11 @@ public class ListingCountReport {
   }
 
   public int getHostId() {
-    return this.host_id;
+    return this.hostId;
   }
 
-  public void setHostId(int host_id) {
-    this.host_id = host_id;
+  public void setHostId(int hostId) {
+    this.hostId = hostId;
   }
 
   public int getCityListingCount() {
@@ -53,7 +53,7 @@ public class ListingCountReport {
         " host_city_count='" + host_city_count + "'" +
         ", country='" + country + "'" +
         ", city='" + city + "'" +
-        ", host_id='" + host_id + "'" +
+        ", hostId='" + hostId + "'" +
         ", city_listing_count='" + city_listing_count + "'" +
         "}";
   }

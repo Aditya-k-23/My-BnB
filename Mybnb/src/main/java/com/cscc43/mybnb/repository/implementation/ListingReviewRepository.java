@@ -50,13 +50,14 @@ public class ListingReviewRepository implements ListingReviewRepositoryInterface
 
   @Override
   public void addListingReview(AddListingReviewBody listingReview) {
-    String query = "CALL add_listing_review(?, ?, ?, ?, ?);";
-    jdbcTemplate.update(query,
-        listingReview.getBookingId(),
-        listingReview.getRenterId(),
-        listingReview.getListingId(),
-        listingReview.getRating(),
-        listingReview.getComment());
+    String query = "CALL add_listing_review('" +
+        listingReview.getBookingId() + "', '" +
+        listingReview.getRenterId() + "', '" +
+        listingReview.getListingId() + "', '" +
+        listingReview.getRating() + "', '" +
+        listingReview.getComment() + "');";
+    System.out.println(query);
+    jdbcTemplate.update(query);
   }
 
   @Override

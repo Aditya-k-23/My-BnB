@@ -126,7 +126,7 @@ insert into
     city,
     country,
     postalCode,
-    host_id
+    hostId
   )
 values
   (

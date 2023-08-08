@@ -42,7 +42,7 @@ public class ListingRepository implements ListingRepositoryInterface {
 
   @Override
   public void addListing(Listing listing) {
-    String query = "INSERT INTO Listing (type, latitude, longitude, addressLine, city, country, postalCode, avgPrice, host_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    String query = "INSERT INTO Listing (type, latitude, longitude, addressLine, city, country, postalCode, avgPrice, hostId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
     jdbcTemplate.update(query,
         listing.getType(),
         listing.getLatitude(),
@@ -62,7 +62,7 @@ public class ListingRepository implements ListingRepositoryInterface {
 
   @Override
   public void updateListing(Listing listing) {
-    String query = "UPDATE Listing SET type = ?, latitude = ?, longitude = ?, addressLine = ?, city = ?, country = ?, postalCode = ?, avgPrice = ?, host_id = ? WHERE id = ?;";
+    String query = "UPDATE Listing SET type = ?, latitude = ?, longitude = ?, addressLine = ?, city = ?, country = ?, postalCode = ?, avgPrice = ?, hostId = ? WHERE id = ?;";
     jdbcTemplate.update(query,
         listing.getType(),
         listing.getLatitude(),
