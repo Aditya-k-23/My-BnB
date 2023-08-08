@@ -5,7 +5,6 @@ public class ListingCountReport {
   private String country;
   private String city;
   private int hostId;
-  private int city_listing_count;
 
   public int getHostCityCount() {
     return this.host_city_count;
@@ -39,14 +38,6 @@ public class ListingCountReport {
     this.hostId = hostId;
   }
 
-  public int getCityListingCount() {
-    return this.city_listing_count;
-  }
-
-  public void setCityListingCount(int city_listing_count) {
-    this.city_listing_count = city_listing_count;
-  }
-
   @Override
   public String toString() {
     return "{" +
@@ -54,7 +45,6 @@ public class ListingCountReport {
         ", country='" + country + "'" +
         ", city='" + city + "'" +
         ", hostId='" + hostId + "'" +
-        ", city_listing_count='" + city_listing_count + "'" +
         "}";
   }
 }

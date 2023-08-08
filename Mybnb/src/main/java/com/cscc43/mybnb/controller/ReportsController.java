@@ -112,7 +112,7 @@ public class ReportsController {
     return renterRepository.getRenterRankedByBoookingsInRangePerCity(startDate, endDate, minBookingCount);
   }
 
-  @GetMapping(value = "/userNounPhrases")
+  @GetMapping(value = "/listingNounPhrases")
   public Map<Integer, Map<String, Integer>> getNounPhrasesCountByListing() {
     List<ListingReview> listingReviews = listingReviewRepository.getAllListingReviews();
     return NounPhrases.getPopularNounPhrases(listingReviews);

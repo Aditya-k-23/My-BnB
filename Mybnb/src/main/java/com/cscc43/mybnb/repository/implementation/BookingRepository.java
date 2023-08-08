@@ -59,9 +59,9 @@ public class BookingRepository implements BookingRepositoryInterface {
       String city, String postalCode) {
     System.out.println(city + postalCode + "\n");
 
-    String query = "SELECT COUNT(*) FROM Booking B\n" +
-        "INNER JOIN Listing L ON L.listingId=B.listingId\n" +
-        "WHERE (startDate BETWEEN ? AND ? OR endDate BETWEEN ? AND ?)\n";
+    String query = "SELECT COUNT(*) FROM Booking B " +
+        "INNER JOIN Listing L ON L.id=B.listingId " +
+        "WHERE (startDate <= '" + endDate + "' AND " + " endDate >=  '" + startDate + "') ";
 
     if (city != null) {
       query += "AND L.city = " + city;
@@ -74,8 +74,7 @@ public class BookingRepository implements BookingRepositoryInterface {
     query += ";";
 
     System.out.println(query + "\n");
-    return jdbcTemplate.queryForObject(query, Integer.class,
-        startDate, endDate, startDate, endDate);
+    return jdbcTemplate.queryForObject(query, Integer.class);
 
   }
 

@@ -3,7 +3,7 @@ package com.cscc43.mybnb.models.combined;
 public class CountryHostIDListing {
   private String country;
   private int hostId;
-  private int listing_count;
+  private int count;
 
   public CountryHostIDListing() {
   }
@@ -24,11 +24,11 @@ public class CountryHostIDListing {
     this.hostId = hostId;
   }
 
-  public int getListingCount() {
-    return this.listing_count;
+  public int getCount() {
+    return this.count;
   }
 
-  public void setListingCount(int listing_count) {
-    this.listing_count = listing_count;
+  public void setCount(int count) {
+    this.count = count;
   }
 }

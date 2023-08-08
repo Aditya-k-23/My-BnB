@@ -4,7 +4,7 @@ public class CountryCityPostalListing {
   private String country;
   private String city;
   private String postalCode;
-  private int listing_count;
+  private int count;
 
   public CountryCityPostalListing() {
   }
@@ -33,11 +33,11 @@ public class CountryCityPostalListing {
     this.postalCode = postalCode;
   }
 
-  public int getListingCount() {
-    return this.listing_count;
+  public int getCount() {
+    return this.count;
   }
 
-  public void setListingCount(int listing_count) {
-    this.listing_count = listing_count;
+  public void setCount(int count) {
+    this.count = count;
   }
 }

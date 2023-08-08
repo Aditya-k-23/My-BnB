@@ -4,7 +4,7 @@ public class CountryCityHostIDListing {
   private String country;
   private String city;
   private int hostId;
-  private int listing_count;
+  private int count;
 
   public CountryCityHostIDListing() {
   }
@@ -33,11 +33,11 @@ public class CountryCityHostIDListing {
     this.hostId = hostId;
   }
 
-  public int getListingCount() {
-    return this.listing_count;
+  public int getCount() {
+    return this.count;
   }
 
-  public void setListingCount(int listing_count) {
-    this.listing_count = listing_count;
+  public void setCount(int count) {
+    this.count = count;
   }
 }

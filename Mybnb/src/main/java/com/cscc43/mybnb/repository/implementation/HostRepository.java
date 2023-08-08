@@ -54,9 +54,9 @@ public class HostRepository implements HostRepositoryInterface {
 
   @Override
   public List<CountryHostIDListing> getHostsByListingsPerCountry() {
-    String query = "SELECT country, hostId, COUNT(*) AS count" +
-        "FROM Host H INNER JOIN Listing L ON L.hostId=H.hostId" +
-        "GROUP BY country, hostId" +
+    String query = "SELECT country, hostId, COUNT(*) AS count " +
+        "FROM Host H INNER JOIN Listing L ON L.hostId=H.id " +
+        "GROUP BY country, hostId " +
         "ORDER BY country, hostId, count DESC;";
     return jdbcTemplate.query(query,
         new BeanPropertyRowMapper(CountryHostIDListing.class));
@@ -64,20 +64,20 @@ public class HostRepository implements HostRepositoryInterface {
 
   @Override
   public List<CountryCityHostIDListing> getHostsByListingsPerCountryCity() {
-    String query = "SELECT country, city, hostId, COUNT(*) AS count" +
-        "FROM Host H INNER JOIN Listing L ON L.hostId=H.hostId" +
-        "GROUP BY country, city, hostId" +
+    String query = "SELECT country, city, hostId, COUNT(*) AS count " +
+        "FROM Host H INNER JOIN Listing L ON L.hostId=H.id " +
+        "GROUP BY country, city, hostId " +
         "ORDER BY country, city, hostId, count DESC;";
     return jdbcTemplate.query(query, new BeanPropertyRowMapper(CountryCityHostIDListing.class));
   }
 
   @Override
   public List<YearUserIDBookingCount> getHostsByCancellationsPerYear() {
-    String query = "SELECT YEAR(startDate) AS year, hostId, COUNT(*) AS count" +
-        "FROM Booking B INNER JOIN Listing L ON L.listingId=B.listingId" +
-        "WHERE status = 'Cancelled'" +
-        "GROUP BY YEAR(startDate), hostId" +
-        "ORDER BY YEAR(booking_date), userId, count DESC;";
+    String query = "SELECT YEAR(startDate) AS year, hostId AS userId, COUNT(*) AS count " +
+        "FROM Booking B INNER JOIN Listing L ON L.id=B.listingId " +
+        "WHERE status = 'Cancelled' " +
+        "GROUP BY YEAR(startDate), hostId " +
+        "ORDER BY YEAR(startDate), userId, count DESC;";
 
     return jdbcTemplate.query(query, new BeanPropertyRowMapper(YearUserIDBookingCount.class));
   }
@@ -86,11 +86,11 @@ public class HostRepository implements HostRepositoryInterface {
   // this report for each city and country
   @Override
   public List<ListingCountReport> getFlaggedHosts() {
-    String query = "SELECT country, city, hostId, COUNT(*) AS count" +
-        "FROM Host H INNER JOIN Listing L ON L.hostId=H.hostId" +
-        "GROUP BY country, city, hostId" +
-        "HAVING count > (SELECT COUNT(*) FROM Listing L2 WHERE L2.hostId=H.hostId) * 0.1" +
-        "ORDER BY country, city, hostId, count DESC;";
+    String query = "SELECT country, city, hostId, COUNT(*) AS hostCityCount " +
+        "FROM Host H INNER JOIN Listing L ON L.hostId=H.id " +
+        "GROUP BY country, city, hostId " +
+        "HAVING hostCityCount > (SELECT COUNT(*) FROM Listing L2, Host H2 WHERE L2.hostId=H2.id) * 0.1 " +
+        "ORDER BY country, city, hostId, hostCityCount DESC;";
 
     return jdbcTemplate.query(query, new BeanPropertyRowMapper(ListingCountReport.class));
   }
