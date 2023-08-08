@@ -1,5 +1,6 @@
 package com.cscc43.mybnb.repository.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import com.cscc43.mybnb.models.combined.CountryCityPostalListing;
 import com.cscc43.mybnb.models.combined.CountryListing;
 import com.cscc43.mybnb.models.combined.ListingAddress;
 import com.cscc43.mybnb.models.combined.ListingDistance;
+import com.cscc43.mybnb.models.rowmappers.ListingAddressMapper;
 import com.cscc43.mybnb.models.rowmappers.ListingDistancePrice;
 import com.cscc43.mybnb.repository.interfaces.ListingRepositoryInterface;
 
@@ -83,7 +85,9 @@ public class ListingRepository implements ListingRepositoryInterface {
   @Override
   public List<ListingDistance> getListingsInDistance(double latitude, double longitude, double radius,
       ListingController.OrderBy orderBy) {
-    String query = "SELECT *, SQRT(POW(? - latitude, 2) + POW(? - longitude, 2)) AS distance FROM Listing WHERE distance <= ? ";
+    String query = "SELECT *, SQRT(POW(" + latitude + " - latitude, 2) + POW(" + longitude
+        + " - longitude, 2)) AS distance FROM Listing WHERE SQRT(POW(" + latitude + " - latitude, 2) + POW(" + longitude
+        + " - longitude, 2))" + " <= " + radius + " ";
 
     String querySuffix = switch (orderBy) {
       case NONE -> ";";
@@ -94,26 +98,32 @@ public class ListingRepository implements ListingRepositoryInterface {
 
     String finalQuery = query + querySuffix;
 
-    return jdbcTemplate.query(finalQuery, new ListingDistancePrice(), latitude, longitude,
-        radius);
+    return jdbcTemplate.query(finalQuery, new ListingDistancePrice());
   }
 
   @Override
   public List<ListingAddress> getListingsByPostalCode(String postalCode) {
-    String query = "SELECT * FROM Listing WHERE postalCode = ?;";
-    return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(ListingAddress.class), postalCode);
+    String postalCodeWithoutSpace = postalCode.replaceAll(" ", "");
+    if (!isAlphaNumeric(postalCodeWithoutSpace) || postalCodeWithoutSpace.length() != 6) {
+      return new ArrayList<>();
+    }
+    String postalCodeFSA = postalCodeWithoutSpace.substring(0, 3);
+    String query = "SELECT * FROM Listing WHERE postalCode like '" + postalCodeFSA + "%'";
+    System.out.println(query);
+    return jdbcTemplate.query(query, new ListingAddressMapper());
   }
 
   @Override
   public List<ListingAddress> getLisitingByAddressLine(String addressLine) {
-    String query = "SELECT * FROM Listing WHERE addressLine = ?;";
-    return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(ListingAddress.class), addressLine);
+    String query = "SELECT * FROM Listing WHERE addressLine like '%" + addressLine + "%'";
+    return jdbcTemplate.query(query, new ListingAddressMapper());
   }
 
   @Override
   public List<Listing> getListingInBudget(double min_price, double max_price) {
-    String query = "SELECT * FROM Listing INNER JOIN Period WHERE avgPrice >= ? AND avgPrice <= ?;";
-    return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Listing.class), min_price, max_price);
+    String query = "SELECT DISTINCT * FROM Listing WHERE avgPrice BETWEEN " + min_price
+        + " AND " + max_price + ";";
+    return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Listing.class));
   }
 
   @Override

@@ -18,6 +18,7 @@ import com.cscc43.mybnb.models.combined.ListingAddress;
 import com.cscc43.mybnb.models.combined.ListingDistance;
 import com.cscc43.mybnb.repository.implementation.ListingRepository;
 import com.cscc43.mybnb.services.ListingSearchQueryBuilder;
+import com.cscc43.mybnb.repository.implementation.AddressRepository;
 import com.cscc43.mybnb.repository.implementation.ListingAmenityRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,9 @@ public class ListingController {
 
   @Autowired
   ListingRepository listingRepository;
+
+  @Autowired
+  AddressRepository addressRepository;
 
   @Autowired
   ListingAmenityRepository listingAmenityRepository;
@@ -50,6 +54,8 @@ public class ListingController {
 
   @PostMapping("/add")
   public void addListing(@RequestBody Listing listing) {
+    addressRepository.addAddress(listing.getAddressLine(), listing.getCity(), listing.getCountry(),
+        listing.getPostalCode());
     listingRepository.addListing(listing);
   }
 
@@ -102,6 +108,7 @@ public class ListingController {
   @GetMapping("/getAdjacentPostalCodes")
   public List<ListingAddress> getListingsWithAdjacentPostalCodes(
       @RequestParam("postalCode") String postalCode) {
+    System.out.println(postalCode);
     return listingRepository.getListingsByPostalCode(postalCode);
   }
 
@@ -138,7 +145,7 @@ public class ListingController {
 
   @GetMapping("/getByAmenities")
   public List<Listing> getAllListingsByAmenities(
-      @RequestParam(value = "amenities", required = false) List<String> amenities) {
+      @RequestParam("amenities") List<String> amenities) {
     return listingRepository.getAllListingsByAmenities(amenities);
   }
 }

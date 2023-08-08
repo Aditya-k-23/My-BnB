@@ -37,7 +37,7 @@ public class ListingSearchQueryBuilder {
       query = addQueryFilter(query, String.format(
           "SELECT DISTINCT id AS distance FROM Listing WHERE SQRT(POW(%f - latitude, 2) + POW(%f - longitude, 2)) <= %f",
           latitude, longitude, radius));
-      query_prefix = "SELECT *. SQRT(POW(" + latitude + " - latitude, 2) + POW(" + longitude
+      query_prefix = "SELECT *, SQRT(POW(" + latitude + " - latitude, 2) + POW(" + longitude
           + "-longitude, 2)) AS distance ";
       canOrderByDistance = true;
     }
@@ -53,11 +53,11 @@ public class ListingSearchQueryBuilder {
     }
     if (minPrice != null) {
       query = addQueryFilter(query,
-          "SELECT DISTINCT id FROM Listing L INNER JOIN Period P on P.listingId=L.id WHERE price > " + minPrice);
+          "SELECT DISTINCT L.id FROM Listing L INNER JOIN Period P on P.listingId=L.id WHERE price > " + minPrice);
     }
     if (maxPrice != null) {
       query = addQueryFilter(query,
-          "SELECT DISTINCT id FROM Listing L INNER JOIN Period P on P.listingId=L.id WHERE price < " + maxPrice);
+          "SELECT DISTINCT L.id FROM Listing L INNER JOIN Period P on P.listingId=L.id WHERE price < " + maxPrice);
     }
     if (amenities != null && !amenities.isEmpty()) {
       String sqlQuery = listingRepository.getQueryToSearchByAmenities(amenities);
@@ -76,8 +76,8 @@ public class ListingSearchQueryBuilder {
     String querySuffix = (orderBy == null) ? " TRUE;" : switch (orderBy) {
       case NONE -> "TRUE;";
       case DISTANCE -> canOrderByDistance ? " ORDER BY distance ASC;" : " TRUE;";
-      case PRICE_ASC -> " TRUE ORDER BY price ASC;";
-      case PRICE_DESC -> " TRUE ORDER BY price DESC;";
+      case PRICE_ASC -> " TRUE ORDER BY avgPrice ASC;";
+      case PRICE_DESC -> " TRUE ORDER BY avgPrice DESC;";
     };
 
     String retQuery = query_prefix + query + querySuffix;
