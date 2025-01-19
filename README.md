@@ -1,5 +1,8 @@
 # Mybnb
 
+Designed and implemented database schema and major backend business requirements for a mock AirBnB platform accessed via APIs.
+Includes reports for insights, and a host toolkit to suggest how they can gain more customers.
+
 ## Project Setup
 
 Install the project dependencies:
